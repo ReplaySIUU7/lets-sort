@@ -1,199 +1,253 @@
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#287747">
+<meta name="description" content="Let's Sort คู่มือค้นหาและคัดแยกขยะอย่างถูกต้อง">
 <title>Let's Sort | Smart Waste Guide</title>
-
 <style>
 *{box-sizing:border-box}
 :root{
- --green:#287747;--dark:#1e5e38;--light:#eaf5e9;
- --bg:#f5f8f4;--text:#304238;--muted:#78877c;
- --border:#e4ece3
+  --green:#287747;--dark:#1e5e38;--light:#eaf5e9;
+  --bg:#f4f8f3;--text:#304238;--muted:#718176;
+  --border:#e2ebe1;--white:#fff;
 }
+html{scroll-behavior:smooth}
 body{
- margin:0;font-family:Arial,Tahoma,sans-serif;
- background:var(--bg);color:var(--text)
+  margin:0;font-family:Arial,Tahoma,sans-serif;
+  background:var(--bg);color:var(--text);
 }
 button,input{font:inherit}
+button{border:0;cursor:pointer;transition:transform .18s,background .18s}
+button:active{transform:scale(.97)}
 header{
- background:linear-gradient(135deg,#e4f3e5,#f7fbf5);
- padding:34px 18px 30px;text-align:center;
- border-radius:0 0 28px 28px
+  background:linear-gradient(135deg,#e1f2e3 0%,#f7fbf5 100%);
+  padding:38px 18px 34px;text-align:center;
+  border-radius:0 0 30px 30px;
 }
 .logo{
- display:inline-flex;align-items:center;justify-content:center;
- width:54px;height:54px;background:white;border-radius:18px;
- font-size:28px;box-shadow:0 5px 18px #28774716
+  display:inline-flex;align-items:center;justify-content:center;
+  width:64px;height:64px;background:white;border-radius:21px;
+  font-size:32px;box-shadow:0 7px 22px #28774716;
 }
-header h1{color:var(--green);font-size:32px;margin:12px 0 6px}
-header p{margin:5px 0;color:#647568;font-size:14px}
+header h1{color:var(--green);font-size:36px;margin:13px 0 5px;letter-spacing:-.7px}
+header p{margin:6px 0;color:#647568;font-size:15px}
 .tagline{
- display:inline-block;margin-top:13px;background:white;
- color:var(--green);border-radius:30px;padding:8px 15px;
- font-size:12px;font-weight:bold
+  display:inline-block;margin-top:15px;background:white;
+  color:var(--green);border-radius:30px;padding:10px 17px;
+  font-size:13px;font-weight:bold;box-shadow:0 3px 14px #2877470c;
 }
-main{width:100%;max-width:600px;margin:22px auto;padding:0 14px}
+main{width:100%;max-width:680px;margin:25px auto;padding:0 15px}
 .card{
- background:white;padding:21px;margin-bottom:17px;
- border-radius:20px;border:1px solid var(--border);
- box-shadow:0 5px 20px #2252300b
+  background:white;padding:23px;margin-bottom:18px;
+  border-radius:23px;border:1px solid var(--border);
+  box-shadow:0 7px 25px #2252300b;
 }
-.section-title{display:flex;align-items:center;gap:9px;margin-bottom:8px}
-.section-title h2{color:var(--green);font-size:20px;margin:0}
-.description{color:var(--muted);font-size:13px;line-height:1.6;margin:8px 0 16px}
-.search-box{display:flex;gap:8px}
+.section-title{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.section-title h2{color:var(--green);font-size:22px;margin:0}
+.description{color:var(--muted);font-size:14px;line-height:1.7;margin:9px 0 17px}
+.search-box{display:flex;gap:9px}
 .search-box input{
- min-width:0;flex:1;border:1px solid #dce6dc;
- background:#fbfdfb;border-radius:12px;padding:13px;font-size:14px;outline:none
+  min-width:0;flex:1;border:1px solid #dce6dc;
+  background:#fbfdfb;border-radius:14px;padding:15px;font-size:15px;outline:none;
 }
-.search-box input:focus{border-color:#6da77a;box-shadow:0 0 0 3px #28774712}
-button{border:0;cursor:pointer;transition:.18s}
-button:active{transform:scale(.96)}
+.search-box input:focus{border-color:#6da77a;box-shadow:0 0 0 4px #28774712}
 .search-btn{
- background:var(--green);color:white;border-radius:12px;
- padding:0 18px;font-weight:bold
+  background:var(--green);color:white;border-radius:14px;
+  padding:0 22px;font-weight:bold;font-size:15px;
 }
 .search-btn:hover{background:var(--dark)}
-.quick-title{font-size:13px;color:var(--muted);margin:18px 0 9px}
+.quick-title{font-size:14px;color:var(--muted);margin:20px 0 10px}
 .quick-buttons{display:flex;flex-wrap:wrap;gap:8px}
 .quick-buttons button{
- background:var(--light);color:var(--green);
- padding:9px 12px;border-radius:30px;font-size:12px
+  background:var(--light);color:var(--green);
+  padding:10px 14px;border-radius:30px;font-size:13px;
 }
 .quick-buttons button:hover{background:#d8ead8}
 .image-section{
- margin-top:22px;padding:17px;background:#f5faf4;
- border:1px dashed #a9c8ad;border-radius:16px;text-align:center
+  margin-top:23px;padding:19px;background:#f5faf4;
+  border:1px dashed #a9c8ad;border-radius:18px;text-align:center;
 }
-.image-section h3{color:var(--green);font-size:16px;margin:0 0 6px}
-.image-section p{color:var(--muted);font-size:12px;line-height:1.5;margin:6px 0 12px}
+.image-section h3{color:var(--green);font-size:17px;margin:0 0 7px}
+.image-section p{color:var(--muted);font-size:13px;line-height:1.6;margin:7px 0 13px}
 .file-label{
- display:inline-block;background:white;border:1px solid #dce9dc;
- color:var(--green);padding:11px 16px;border-radius:11px;
- font-size:13px;font-weight:bold;cursor:pointer
+  display:inline-block;background:white;border:1px solid #dce9dc;
+  color:var(--green);padding:12px 18px;border-radius:12px;
+  font-size:14px;font-weight:bold;cursor:pointer;
 }
 #imageInput{display:none}
 #imagePreview{margin-top:12px}
 #imagePreview img{
- display:block;max-width:100%;max-height:260px;
- margin:10px auto;border-radius:13px;object-fit:contain;
- box-shadow:0 4px 14px #00000012;animation:fadeUp .3s ease
+  display:block;max-width:100%;max-height:260px;
+  margin:10px auto;border-radius:14px;object-fit:contain;
+  box-shadow:0 4px 14px #00000012;animation:fadeUp .3s ease;
 }
 .image-actions{display:flex;justify-content:center;gap:8px;margin-top:10px}
 .small-btn{
- padding:9px 13px;border-radius:9px;background:white;
- color:var(--green);border:1px solid #dce9dc;font-size:12px
+  padding:10px 14px;border-radius:10px;background:white;
+  color:var(--green);border:1px solid #dce9dc;font-size:13px;
 }
 .clear-btn{color:#a34a4a;border-color:#f0dada}
-.image-status{color:var(--green);font-size:12px;font-weight:bold;margin-top:8px}
-#result{margin-top:20px}
+.image-status{color:var(--green);font-size:13px;font-weight:bold;margin-top:8px}
+#result{margin-top:22px;scroll-margin-top:14px}
 .empty{
- text-align:center;background:#f8faf7;padding:22px 12px;
- border-radius:13px;color:var(--muted);font-size:13px;line-height:1.6
+  text-align:center;background:#f8faf7;padding:25px 14px;
+  border-radius:16px;color:var(--muted);font-size:14px;line-height:1.7;
+}
+.result-heading{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin:0 0 12px;color:var(--green);font-size:15px;font-weight:bold;
+}
+.result-count{
+  display:inline-flex;align-items:center;justify-content:center;
+  background:#eaf5e9;color:#287747;padding:5px 10px;border-radius:30px;
+  font-size:12px;white-space:nowrap;
 }
 .result-card{
- background:#fbfdfb;border:1px solid #e1ece0;padding:17px;
- border-radius:15px;margin-bottom:12px;animation:fadeUp .35s ease both
+  background:#fff;border:1px solid #dfeadf;padding:17px;
+  border-radius:20px;margin-bottom:15px;overflow:hidden;
+  box-shadow:0 7px 22px #2252300a;animation:fadeUp .35s ease both;
 }
-.result-card h3{color:var(--green);margin:0 0 10px;font-size:18px}
-.result-card p{font-size:13px;line-height:1.7;margin:10px 0}
+.result-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.result-card h3{color:var(--green);margin:0 0 9px;font-size:20px;line-height:1.4}
 .category{
- display:inline-block;background:#edf5ec;color:#347348;
- padding:6px 10px;border-radius:30px;font-size:11px
+  display:inline-block;background:#edf5ec;color:#347348;
+  padding:7px 11px;border-radius:30px;font-size:12px;
 }
-.bin-box{
- background:#e7f4e6;color:#21643a;border-radius:12px;
- padding:14px;margin:13px 0;font-size:15px;font-weight:bold;line-height:1.6
+.bin-hero{
+  --bin-color:#e8bd35;--bin-bg:#fff8df;
+  margin:16px 0 14px;padding:17px 14px 18px;
+  border:1px solid color-mix(in srgb,var(--bin-color) 35%,white);
+  border-radius:19px;background:var(--bin-bg);text-align:center;
 }
-.warning{background:#fff7e9;color:#906323;padding:11px;border-radius:10px}
-.info-card{line-height:1.8;color:#647568;font-size:13px}
-.info-card h2{color:var(--green);font-size:19px;margin-top:0}
-footer{text-align:center;padding:22px 15px 30px;color:var(--muted);font-size:11px;line-height:1.8}
+.bin-kicker{
+  color:#5d6d60;font-size:12px;font-weight:bold;
+  letter-spacing:.3px;text-transform:uppercase;
+}
+.bin-art{
+  width:100%;height:158px;display:flex;align-items:center;justify-content:center;
+  margin:4px auto 0;
+}
+.bin-art svg{width:148px;height:150px;overflow:visible;filter:drop-shadow(0 7px 5px #233b2517)}
+.bin-name{
+  color:#263d2e;font-size:25px;line-height:1.3;font-weight:800;margin:2px 0 4px;
+}
+.bin-type{color:#526657;font-size:14px;font-weight:bold}
+.bin-instruction{
+  display:inline-block;margin-top:11px;padding:8px 13px;border-radius:30px;
+  background:#ffffffc9;color:#415648;font-size:12px;line-height:1.5;
+}
+.special-hero{
+  margin:16px 0 14px;padding:20px 16px;border-radius:19px;
+  background:#eef3f1;border:1px solid #d7e2dc;text-align:center;
+}
+.special-icon{
+  width:78px;height:78px;margin:0 auto 9px;border-radius:23px;
+  display:flex;align-items:center;justify-content:center;
+  background:white;color:#527465;font-size:42px;
+  box-shadow:0 5px 16px #27493610;
+}
+.special-title{font-size:23px;font-weight:800;color:#345c49;margin:3px 0 6px}
+.special-description{font-size:13px;color:#607468;line-height:1.6}
+.detail-block{
+  background:#f7faf7;border:1px solid #e8eee7;
+  border-radius:15px;padding:15px;margin-top:12px;
+}
+.detail-block h4{font-size:15px;color:#315e40;margin:0 0 8px}
+.detail-block p{font-size:14px;line-height:1.75;margin:0;color:#526257}
+.warning{
+  background:#fff7e9;color:#80602c;padding:13px 14px;
+  border-radius:13px;margin-top:12px;font-size:13px;line-height:1.7;
+}
+.result-note{font-size:11px;color:#849087;line-height:1.6;margin:13px 2px 0}
+.info-card{line-height:1.9;color:#647568;font-size:14px}
+.info-card h2{color:var(--green);font-size:21px;margin-top:0}
+footer{text-align:center;padding:25px 15px 34px;color:var(--muted);font-size:12px;line-height:1.9}
 footer a{color:var(--green);text-decoration:none}
 #toast{
- position:fixed;bottom:22px;left:50%;
- transform:translate(-50%,20px);background:#244d34;color:white;
- padding:12px 18px;border-radius:30px;font-size:13px;
- box-shadow:0 5px 20px #00000020;opacity:0;pointer-events:none;
- transition:.3s;z-index:1000;width:max-content;
- max-width:calc(100% - 30px);text-align:center
+  position:fixed;bottom:22px;left:50%;
+  transform:translate(-50%,20px);background:#244d34;color:white;
+  padding:12px 18px;border-radius:30px;font-size:13px;
+  box-shadow:0 5px 20px #00000020;opacity:0;pointer-events:none;
+  transition:.3s;z-index:1000;width:max-content;
+  max-width:calc(100% - 30px);text-align:center;
 }
 #toast.show{opacity:1;transform:translate(-50%,0)}
-@keyframes fadeUp{
- from{opacity:0;transform:translateY(9px)}
- to{opacity:1;transform:translateY(0)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:600px){
+  header{padding:48px 20px 40px}
+  header h1{font-size:42px}
+  .card{padding:27px}
+  .bin-art{height:178px}
+  .bin-art svg{width:166px;height:168px}
 }
-@media(max-width:380px){
- .card{padding:16px}.search-btn{padding:0 12px}
- header h1{font-size:28px}
+@media(max-width:390px){
+  .card{padding:17px}
+  .search-btn{padding:0 14px}
+  header h1{font-size:31px}
+  .result-card{padding:14px}
+  .bin-name{font-size:22px}
 }
 @media(prefers-reduced-motion:reduce){
- *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 }
 </style>
 </head>
-
 <body>
 
 <header>
- <div class="logo">♻️</div>
- <h1>Let's Sort</h1>
- <p>Smart Waste Sorting Guide</p>
- <p>ค้นให้เจอ แยกให้ถูก ทิ้งให้เป็น</p>
- <div class="tagline">🌱 Small Actions, Cleaner Community</div>
+  <div class="logo" aria-hidden="true">♻️</div>
+  <h1>Let's Sort</h1>
+  <p>Smart Waste Sorting Guide</p>
+  <p>ค้นให้เจอ แยกให้ถูก ทิ้งให้เป็น</p>
+  <div class="tagline">🌱 Small Actions, Cleaner Community</div>
 </header>
 
 <main>
 <section class="card">
- <div class="section-title"><span>🔎</span><h2>ค้นหาประเภทขยะ</h2></div>
- <p class="description">พิมพ์ชื่อสิ่งของที่ต้องการค้นหา เพื่อดูวิธีคัดแยกและคำแนะนำในการทิ้ง</p>
+  <div class="section-title"><span aria-hidden="true">🔎</span><h2>ค้นหาประเภทขยะ</h2></div>
+  <p class="description">พิมพ์ชื่อสิ่งของที่ต้องการค้นหา เพื่อดูประเภทขยะและภาชนะหรือจุดรับที่เหมาะสม</p>
+  <div class="search-box">
+    <input type="search" id="searchInput" placeholder="เช่น ขวดน้ำ กระดาษ ถ่านไฟฉาย" autocomplete="off" aria-label="พิมพ์ชื่อขยะที่ต้องการค้นหา">
+    <button class="search-btn" id="searchBtn" type="button">ค้นหา</button>
+  </div>
+  <p class="quick-title">✨ ค้นหาด่วน</p>
+  <div class="quick-buttons">
+    <button type="button" data-search="ขวดน้ำ">ขวดน้ำ</button>
+    <button type="button" data-search="เศษอาหาร">เศษอาหาร</button>
+    <button type="button" data-search="กระดาษ">กระดาษ</button>
+    <button type="button" data-search="ถ่านไฟฉาย">ถ่านไฟฉาย</button>
+    <button type="button" data-search="ซองขนม">ซองขนม</button>
+    <button type="button" data-search="โทรศัพท์เก่า">โทรศัพท์เก่า</button>
+  </div>
+  <div class="image-section">
+    <h3>📷 ค้นหาด้วยภาพ</h3>
+    <p>เลือกรูปขยะจากแกลเลอรีหรือถ่ายภาพด้วยกล้อง</p>
+    <label class="file-label" for="imageInput">＋ เลือกรูปภาพ</label>
+    <input type="file" id="imageInput" accept="image/*" capture="environment">
+    <div id="imagePreview"><p>ภาพที่เลือกจะแสดงตรงนี้</p></div>
+  </div>
 
- <div class="search-box">
-  <input type="search" id="searchInput" placeholder="เช่น ขวดน้ำ กระดาษ ถ่านไฟฉาย" autocomplete="off">
-  <button class="search-btn" id="searchBtn" type="button">ค้นหา</button>
- </div>
-
- <p class="quick-title">✨ ค้นหาด่วน</p>
- <div class="quick-buttons">
-  <button type="button" data-search="ขวดน้ำ">ขวดน้ำ</button>
-  <button type="button" data-search="เศษอาหาร">เศษอาหาร</button>
-  <button type="button" data-search="กระดาษ">กระดาษ</button>
-  <button type="button" data-search="ถ่านไฟฉาย">ถ่านไฟฉาย</button>
-  <button type="button" data-search="ซองขนม">ซองขนม</button>
-  <button type="button" data-search="โทรศัพท์เก่า">โทรศัพท์เก่า</button>
- </div>
-
- <div class="image-section">
-  <h3>📷 ค้นหาด้วยภาพ</h3>
-  <p>เลือกรูปขยะจากแกลเลอรีหรือถ่ายภาพด้วยกล้อง</p>
-  <label class="file-label" for="imageInput">＋ เลือกรูปภาพ</label>
-  <input type="file" id="imageInput" accept="image/*" capture="environment">
-  <div id="imagePreview"><p>ภาพที่เลือกจะแสดงตรงนี้</p></div>
- </div>
-
- <div id="result">
-  <div class="empty">🌿<br>เริ่มต้นค้นหาสิ่งของที่ต้องการทิ้งได้เลย</div>
- </div>
+  <div id="result" aria-live="polite">
+    <div class="empty">🌿<br>เริ่มต้นค้นหาสิ่งของที่ต้องการทิ้งได้เลย</div>
+  </div>
 </section>
 
 <section class="card info-card">
- <h2>🌍 ทำไมต้องแยกขยะ?</h2>
- <p>การคัดแยกขยะช่วยให้วัสดุที่ยังใช้ประโยชน์ได้ถูกนำกลับมาใช้ใหม่ ลดปริมาณขยะที่ต้องกำจัด และช่วยลดผลกระทบต่อสิ่งแวดล้อม</p>
- <p>Let's Sort เป็นส่วนหนึ่งของแนวคิด SDG 11 เมืองและชุมชนที่ยั่งยืน</p>
+  <h2>🌍 ทำไมต้องแยกขยะ?</h2>
+  <p>การคัดแยกขยะช่วยให้วัสดุที่ยังใช้ประโยชน์ได้ถูกนำกลับมาใช้ใหม่ ลดปริมาณขยะที่ต้องกำจัด และช่วยลดผลกระทบต่อสิ่งแวดล้อม</p>
+  <p>Let's Sort เป็นส่วนหนึ่งของแนวคิด SDG 11 เมืองและชุมชนที่ยั่งยืน</p>
 </section>
 </main>
 
 <footer>
- <strong>Let's Sort</strong><br>
- Your smart guide to waste sorting.<br><br>
- แหล่งข้อมูลอ้างอิง<br>
- <a href="https://greener.bangkok.go.th/waste-recycle/how-to-ting/" target="_blank" rel="noopener noreferrer">Greener Bangkok</a><br>
- <a href="https://sdgs.un.org/goals/goal11" target="_blank" rel="noopener noreferrer">United Nations SDG 11</a>
- <p>คำแนะนำเป็นข้อมูลทั่วไป ควรตรวจสอบข้อกำหนดของจุดรับในพื้นที่</p>
+  <strong>Let's Sort</strong><br>
+  Your smart guide to waste sorting.<br><br>
+  แหล่งข้อมูลอ้างอิง<br>
+  <a href="https://greener.bangkok.go.th/waste-recycle/how-to-ting/" target="_blank" rel="noopener noreferrer">Greener Bangkok</a><br>
+  <a href="https://sdgs.un.org/goals/goal11" target="_blank" rel="noopener noreferrer">United Nations SDG 11</a>
+  <p>สีถังและวิธีทิ้งอาจแตกต่างกันตามพื้นที่ โปรดตรวจสอบป้ายของจุดทิ้งหรือจุดรับจริง</p>
 </footer>
 
 <div id="toast" role="status" aria-live="polite"></div>
@@ -201,165 +255,213 @@ footer a{color:var(--green);text-decoration:none}
 <script>
 "use strict";
 
+/*
+  binType:
+  yellow = รีไซเคิล
+  green  = อินทรีย์
+  blue   = ทั่วไป
+  red    = อันตราย
+  special= จุดรับเฉพาะ / ใช้ซ้ำ / ต้องตรวจสอบผู้รับ
+*/
 const wasteData = [
-{name:"ขวดน้ำพลาสติก PET",keywords:["ขวดน้ำ","ขวดพลาสติก","ขวด pet","ขวดน้ำดื่ม"],category:"ขยะรีไซเคิล",bin:"ถังขยะรีไซเคิล หรือจุดรับพลาสติก",steps:"เทน้ำออก ล้างสิ่งสกปรก แยกฝาและฉลากตามข้อกำหนดของจุดรับ แล้วบีบให้แบน",note:"ตรวจสอบว่าจุดรับรองรับพลาสติก PET"},
-{name:"ขวดแก้ว",keywords:["ขวดแก้ว","ขวดน้ำแก้ว","ขวดซอส"],category:"ขยะรีไซเคิล",bin:"ถังขยะรีไซเคิลหรือจุดรับแก้ว",steps:"เทของเหลวออก ล้างให้สะอาด และแยกประเภทแก้วตามจุดรับ",note:"หากแตกหรือมีคม ห้ามทิ้งปะปนโดยไม่ห่อหรือแจ้งให้ทราบ"},
-{name:"กระป๋องอะลูมิเนียม",keywords:["กระป๋อง","กระป๋องน้ำอัดลม","กระป๋องอลูมิเนียม"],category:"ขยะรีไซเคิล",bin:"ถังรีไซเคิลหรือจุดรับอะลูมิเนียม",steps:"เทของเหลวออก ล้างให้สะอาด และรวบรวมส่งจุดรับ",note:"ระวังขอบกระป๋องที่อาจมีความคม"},
-{name:"กระดาษทั่วไป",keywords:["กระดาษ","กระดาษเขียน","กระดาษ a4"],category:"ขยะรีไซเคิล",bin:"ถังรีไซเคิลหรือจุดรับกระดาษ",steps:"แยกกระดาษที่แห้งและสะอาดออกจากขยะเปียก แล้วรวบรวมให้เป็นระเบียบ",note:"กระดาษเปื้อนอาหารหรือเปียกมากอาจรีไซเคิลไม่ได้"},
-{name:"กล่องกระดาษลัง",keywords:["กล่องกระดาษ","กล่องลัง","ลัง","กระดาษลัง"],category:"ขยะรีไซเคิล",bin:"ถังรีไซเคิลหรือจุดรับกระดาษลัง",steps:"นำสิ่งของออก พับกล่องให้แบน และเก็บในที่แห้ง",note:"ไม่ควรส่งกล่องที่เปื้อนน้ำมันหรืออาหาร"},
-{name:"หนังสือและสมุด",keywords:["หนังสือ","สมุด","หนังสือเรียน"],category:"ขยะรีไซเคิลหรือใช้ซ้ำ",bin:"บริจาคเพื่อนำกลับมาใช้ หรือจุดรับกระดาษ",steps:"หากยังใช้ได้ให้บริจาค หากชำรุดให้แยกส่วนประกอบตามที่จุดรับกำหนด",note:"ตรวจสอบการรับปกหนังสือและวัสดุเคลือบ"},
-{name:"ถุงพลาสติกสะอาด",keywords:["ถุงพลาสติก","ถุงหูหิ้ว","ถุงใส่ของ"],category:"ขยะรีไซเคิลตามจุดรับ",bin:"จุดรับพลาสติกที่รองรับถุงชนิดนั้น",steps:"ทำความสะอาดและทำให้แห้ง รวบรวมแยกจากขยะชนิดอื่น",note:"ถุงเปื้อนอาหารหรือถุงหลายชั้นอาจรีไซเคิลไม่ได้"},
-{name:"กล่องเครื่องดื่ม",keywords:["กล่องนม","กล่องน้ำผลไม้","กล่องยูเอชที","กล่อง uht"],category:"ขยะรีไซเคิลตามจุดรับ",bin:"จุดรับกล่องเครื่องดื่มโดยเฉพาะ",steps:"เทของเหลวออก ล้างและทำให้แห้ง พับให้แบน",note:"ไม่ใช่ทุกจุดรับที่รับกล่องเครื่องดื่ม"},
-{name:"เศษอาหาร",keywords:["เศษอาหาร","อาหารเหลือ","ข้าวเหลือ","กับข้าวเหลือ"],category:"ขยะอินทรีย์",bin:"ถังขยะอินทรีย์หรือจุดทำปุ๋ย",steps:"แยกเศษอาหารออกจากบรรจุภัณฑ์ และนำไปทำปุ๋ยหมักหากมีระบบรองรับ",note:"หลีกเลี่ยงการปะปนกับพลาสติกและสารเคมี"},
-{name:"เปลือกผลไม้",keywords:["เปลือกผลไม้","เปลือกกล้วย","เปลือกส้ม","เปลือกมะม่วง"],category:"ขยะอินทรีย์",bin:"ถังขยะอินทรีย์หรือจุดทำปุ๋ย",steps:"แยกออกจากบรรจุภัณฑ์ และนำไปทำปุ๋ยหมักได้ตามความเหมาะสม",note:"ไม่ควรทิ้งปะปนกับขยะรีไซเคิล"},
-{name:"ใบไม้และกิ่งไม้",keywords:["ใบไม้","กิ่งไม้","ใบหญ้า","เศษใบไม้"],category:"ขยะอินทรีย์",bin:"จุดรวบรวมขยะสวนหรือระบบทำปุ๋ย",steps:"รวบรวมแยกจากขยะทั่วไป และนำไปทำปุ๋ยหมักหากพื้นที่รองรับ",note:"กิ่งไม้ขนาดใหญ่ควรตรวจสอบวิธีจัดเก็บของท้องถิ่น"},
-{name:"กล่องโฟม",keywords:["กล่องโฟม","โฟมใส่อาหาร","โฟม"],category:"ขยะทั่วไปหรือจุดรับเฉพาะ",bin:"ถังขยะทั่วไป เว้นแต่มีจุดรับโฟมโดยเฉพาะ",steps:"เทเศษอาหารออก และแยกจากวัสดุรีไซเคิลอื่น",note:"โฟมเปื้อนอาหารมักไม่เหมาะกับการรีไซเคิลทั่วไป"},
-{name:"ซองขนม",keywords:["ซองขนม","ถุงขนม","ซองมันฝรั่ง","ซองบะหมี่"],category:"ขยะทั่วไป",bin:"ถังขยะทั่วไป",steps:"เทเศษขนมออก และทิ้งตามระบบขยะทั่วไป",note:"ซองขนมหลายชนิดเป็นวัสดุหลายชั้นและรีไซเคิลยาก"},
-{name:"แก้วพลาสติก",keywords:["แก้วพลาสติก","แก้วน้ำพลาสติก","แก้วชา"],category:"ขยะรีไซเคิลตามชนิดวัสดุ",bin:"จุดรับพลาสติกที่รองรับชนิดของแก้ว",steps:"เทเครื่องดื่มออก ล้างให้สะอาด แยกหลอดและฝาตามข้อกำหนด",note:"ตรวจสอบชนิดพลาสติกและข้อกำหนดของจุดรับ"},
-{name:"หลอดพลาสติก",keywords:["หลอด","หลอดพลาสติก"],category:"ขยะทั่วไป",bin:"ถังขยะทั่วไป",steps:"รวบรวมและทิ้งในถังขยะทั่วไป",note:"หลอดมีขนาดเล็กและมักไม่คุ้มต่อการคัดแยกรีไซเคิล"},
-{name:"ถ่านไฟฉาย",keywords:["ถ่านไฟฉาย","ถ่าน aa","ถ่าน aaa","แบตเตอรี่ก้อน"],category:"ขยะอันตราย",bin:"จุดรับขยะอันตรายหรือจุดรับแบตเตอรี่",steps:"แยกเก็บจากขยะทั่วไป และนำส่งจุดรับเฉพาะ",note:"ห้ามแกะ เผา หรือทิ้งปะปนกับขยะทั่วไป"},
-{name:"แบตเตอรี่โทรศัพท์",keywords:["แบตเตอรี่มือถือ","แบตเตอรี่โทรศัพท์","แบตเตอรี่ลิเธียม"],category:"ขยะอันตราย",bin:"จุดรับแบตเตอรี่หรือขยะอิเล็กทรอนิกส์",steps:"นำส่งจุดรับเฉพาะตามคำแนะนำของผู้ให้บริการ",note:"ห้ามเจาะ บีบ หรือเผาแบตเตอรี่"},
-{name:"โทรศัพท์เก่า",keywords:["โทรศัพท์เก่า","มือถือเก่า","โทรศัพท์มือถือ","สมาร์ตโฟน"],category:"ขยะอิเล็กทรอนิกส์",bin:"จุดรับขยะอิเล็กทรอนิกส์",steps:"สำรองข้อมูลและลบข้อมูลส่วนตัวก่อนส่งมอบ ถอดแบตเตอรี่เฉพาะเมื่อออกแบบให้ถอดได้",note:"ไม่ควรทิ้งรวมกับขยะทั่วไป"},
-{name:"หลอดไฟ",keywords:["หลอดไฟ","หลอดนีออน","หลอดฟลูออเรสเซนต์","หลอด led"],category:"ขยะอันตรายหรือขยะเฉพาะ",bin:"จุดรับหลอดไฟหรือขยะอันตราย",steps:"เก็บแยกจากขยะทั่วไป และส่งจุดรับเฉพาะ",note:"หลอดบางชนิดมีสารที่ต้องจัดการเป็นพิเศษ ระวังแตก"},
-{name:"กระป๋องสเปรย์",keywords:["กระป๋องสเปรย์","สเปรย์","กระป๋องยาฆ่าแมลง"],category:"ขยะอันตราย",bin:"จุดรับขยะอันตรายตามข้อกำหนดท้องถิ่น",steps:"แยกเก็บและนำส่งจุดรับที่กำหนด",note:"ห้ามเจาะ เผา หรือบีบอัดกระป๋อง"},
-{name:"ขวดน้ำมันพืช",keywords:["ขวดน้ำมัน","ขวดน้ำมันพืช","น้ำมันพืช"],category:"ขยะรีไซเคิลตามจุดรับ",bin:"จุดรับพลาสติกที่รองรับชนิดขวด",steps:"เทน้ำมันออกให้หมด ทำความสะอาด และทำให้แห้ง",note:"อย่าเทน้ำมันใช้แล้วลงท่อระบายน้ำ"},
-{name:"เสื้อผ้าเก่า",keywords:["เสื้อผ้า","เสื้อเก่า","กางเกงเก่า","ผ้าเก่า"],category:"ใช้ซ้ำหรือจุดรับสิ่งทอ",bin:"บริจาคหรือจุดรับสิ่งทอ",steps:"คัดแยกเสื้อผ้าที่ยังใช้ได้เพื่อนำไปบริจาค ส่วนที่ใช้ไม่ได้ให้ตรวจสอบจุดรับสิ่งทอ",note:"ไม่ควรถือว่าเสื้อผ้าทุกชนิดรีไซเคิลได้"},
-{name:"รองเท้าเก่า",keywords:["รองเท้า","รองเท้าเก่า","รองเท้าผ้าใบ"],category:"ใช้ซ้ำหรือจุดรับเฉพาะ",bin:"จุดรับบริจาคหรือจุดรับรองเท้า",steps:"ตรวจสอบสภาพ หากยังใช้ได้ให้นำไปบริจาค",note:"ตรวจสอบว่าจุดรับรองเท้ารับสภาพแบบใด"},
-{name:"หน้ากากอนามัยใช้แล้ว",keywords:["หน้ากาก","หน้ากากอนามัย","แมสก์"],category:"ขยะทั่วไป",bin:"ถังขยะทั่วไปตามคำแนะนำของพื้นที่",steps:"แยกจากวัสดุรีไซเคิลและทิ้งในถังที่กำหนด",note:"ไม่ควรนำกลับมาใช้ซ้ำ"},
-{name:"กระดาษทิชชู่ใช้แล้ว",keywords:["ทิชชู่","กระดาษทิชชู่","ทิชชู"],category:"ขยะทั่วไป",bin:"ถังขยะทั่วไป",steps:"ทิ้งในถังขยะทั่วไป",note:"กระดาษทิชชู่ใช้แล้วไม่เหมาะกับการรีไซเคิลทั่วไป"},
-{name:"กระป๋องอาหาร",keywords:["กระป๋องอาหาร","กระป๋องปลากระป๋อง","กระป๋องเหล็ก"],category:"ขยะรีไซเคิล",bin:"ถังรีไซเคิลหรือจุดรับโลหะ",steps:"เทอาหารออก ล้างให้สะอาด และทำให้แห้ง",note:"ระวังขอบโลหะที่อาจคม"},
-{name:"ถุงพลาสติกเปื้อนอาหาร",keywords:["ถุงเปื้อนอาหาร","ถุงแกง","ถุงใส่อาหาร"],category:"ขยะทั่วไป",bin:"ถังขยะทั่วไป",steps:"เทเศษอาหารออกและทิ้งตามระบบขยะทั่วไป",note:"ถุงที่เปื้อนอาหารมากไม่เหมาะกับการรีไซเคิล"},
-{name:"จานชามแตก",keywords:["จานแตก","ชามแตก","แก้วแตก","เซรามิก"],category:"ขยะทั่วไปหรือจุดรับเฉพาะ",bin:"ถังขยะทั่วไปตามข้อกำหนดพื้นที่ หรือจุดรับเศษวัสดุ",steps:"ห่อหรือบรรจุให้ปลอดภัยก่อนทิ้ง และแจ้งให้ผู้เก็บขยะทราบ",note:"ระวังเศษคม ไม่ทิ้งปะปนกับเศษแก้วรีไซเคิล"},
-{name:"ยาและบรรจุภัณฑ์ยา",keywords:["ยา","ยาเก่า","ยาเสื่อม","ยาเหลือ"],category:"ขยะยา",bin:"จุดรับคืนยาหรือสถานพยาบาลที่รับกำจัด",steps:"แยกยาออกจากขยะทั่วไป และสอบถามเภสัชกรหรือสถานพยาบาลเรื่องจุดรับคืน",note:"ไม่ควรเทยาลงชักโครกหรือท่อระบายน้ำ"},
-{name:"น้ำมันใช้แล้ว",keywords:["น้ำมันทอด","น้ำมันใช้แล้ว","น้ำมันเก่า"],category:"ขยะที่ต้องรวบรวมเฉพาะ",bin:"จุดรับน้ำมันใช้แล้ว",steps:"พักให้น้ำมันเย็นแล้วเก็บในภาชนะปิดสนิท เพื่อนำส่งจุดรับ",note:"ห้ามเทลงอ่างล้างจานหรือท่อระบายน้ำ"},
-{name:"ถ่านกระดุม",keywords:["ถ่านกระดุม","แบตเตอรี่กระดุม","ถ่านนาฬิกา"],category:"ขยะอันตราย",bin:"จุดรับแบตเตอรี่หรือขยะอันตราย",steps:"เก็บแยกและนำส่งจุดรับเฉพาะ",note:"เก็บให้พ้นมือเด็ก ห้ามแกะหรือเผา"}
+{name:"ขวดน้ำพลาสติก PET",keywords:["ขวดน้ำ","ขวดพลาสติก","ขวด pet","ขวดน้ำดื่ม"],category:"ขยะรีไซเคิล",bin:"ถังขยะรีไซเคิล หรือจุดรับพลาสติก",binType:"yellow",steps:"เทน้ำออก ล้างสิ่งสกปรก แยกฝาและฉลากตามข้อกำหนดของจุดรับ แล้วบีบให้แบน",note:"ตรวจสอบว่าจุดรับรองรับพลาสติก PET"},
+{name:"ขวดแก้ว",keywords:["ขวดแก้ว","ขวดน้ำแก้ว","ขวดซอส"],category:"ขยะรีไซเคิล",bin:"ถังขยะรีไซเคิลหรือจุดรับแก้ว",binType:"yellow",steps:"เทของเหลวออก ล้างให้สะอาด และแยกประเภทแก้วตามจุดรับ",note:"หากแตกหรือมีคม ห้ามทิ้งปะปนโดยไม่ห่อหรือแจ้งให้ทราบ"},
+{name:"กระป๋องอะลูมิเนียม",keywords:["กระป๋อง","กระป๋องน้ำอัดลม","กระป๋องอลูมิเนียม"],category:"ขยะรีไซเคิล",bin:"ถังรีไซเคิลหรือจุดรับอะลูมิเนียม",binType:"yellow",steps:"เทของเหลวออก ล้างให้สะอาด และรวบรวมส่งจุดรับ",note:"ระวังขอบกระป๋องที่อาจมีความคม"},
+{name:"กระดาษทั่วไป",keywords:["กระดาษ","กระดาษเขียน","กระดาษ a4"],category:"ขยะรีไซเคิล",bin:"ถังรีไซเคิลหรือจุดรับกระดาษ",binType:"yellow",steps:"แยกกระดาษที่แห้งและสะอาดออกจากขยะเปียก แล้วรวบรวมให้เป็นระเบียบ",note:"กระดาษเปื้อนอาหารหรือเปียกมากอาจรีไซเคิลไม่ได้"},
+{name:"กล่องกระดาษลัง",keywords:["กล่องกระดาษ","กล่องลัง","ลัง","กระดาษลัง"],category:"ขยะรีไซเคิล",bin:"ถังรีไซเคิลหรือจุดรับกระดาษลัง",binType:"yellow",steps:"นำสิ่งของออก พับกล่องให้แบน และเก็บในที่แห้ง",note:"ไม่ควรส่งกล่องที่เปื้อนน้ำมันหรืออาหาร"},
+{name:"หนังสือและสมุด",keywords:["หนังสือ","สมุด","หนังสือเรียน"],category:"ใช้ซ้ำหรือรีไซเคิล",bin:"บริจาคเพื่อนำกลับมาใช้ หรือจุดรับกระดาษ",binType:"special",steps:"หากยังใช้ได้ให้บริจาค หากชำรุดให้แยกส่วนประกอบตามที่จุดรับกำหนด",note:"ตรวจสอบการรับปกหนังสือและวัสดุเคลือบ"},
+{name:"ถุงพลาสติกสะอาด",keywords:["ถุงพลาสติก","ถุงหูหิ้ว","ถุงใส่ของ"],category:"ขยะรีไซเคิลตามจุดรับ",bin:"จุดรับพลาสติกที่รองรับถุงชนิดนั้น",binType:"special",steps:"ทำความสะอาดและทำให้แห้ง รวบรวมแยกจากขยะชนิดอื่น",note:"ถุงเปื้อนอาหารหรือถุงหลายชั้นอาจรีไซเคิลไม่ได้"},
+{name:"กล่องเครื่องดื่ม",keywords:["กล่องนม","กล่องน้ำผลไม้","กล่องยูเอชที","กล่อง uht"],category:"ขยะรีไซเคิลตามจุดรับ",bin:"จุดรับกล่องเครื่องดื่มโดยเฉพาะ",binType:"special",steps:"เทของเหลวออก ล้างและทำให้แห้ง พับให้แบน",note:"ไม่ใช่ทุกจุดรับที่รับกล่องเครื่องดื่ม"},
+{name:"เศษอาหาร",keywords:["เศษอาหาร","อาหารเหลือ","ข้าวเหลือ","กับข้าวเหลือ"],category:"ขยะอินทรีย์",bin:"ถังขยะอินทรีย์หรือจุดทำปุ๋ย",binType:"green",steps:"แยกเศษอาหารออกจากบรรจุภัณฑ์ และนำไปทำปุ๋ยหมักหากมีระบบรองรับ",note:"หลีกเลี่ยงการปะปนกับพลาสติกและสารเคมี"},
+{name:"เปลือกผลไม้",keywords:["เปลือกผลไม้","เปลือกกล้วย","เปลือกส้ม","เปลือกมะม่วง"],category:"ขยะอินทรีย์",bin:"ถังขยะอินทรีย์หรือจุดทำปุ๋ย",binType:"green",steps:"แยกออกจากบรรจุภัณฑ์ และนำไปทำปุ๋ยหมักได้ตามความเหมาะสม",note:"ไม่ควรทิ้งปะปนกับขยะรีไซเคิล"},
+{name:"ใบไม้และกิ่งไม้",keywords:["ใบไม้","กิ่งไม้","ใบหญ้า","เศษใบไม้"],category:"ขยะอินทรีย์",bin:"จุดรวบรวมขยะสวนหรือระบบทำปุ๋ย",binType:"special",steps:"รวบรวมแยกจากขยะทั่วไป และนำไปทำปุ๋ยหมักหากพื้นที่รองรับ",note:"กิ่งไม้ขนาดใหญ่ควรตรวจสอบวิธีจัดเก็บของท้องถิ่น"},
+{name:"กล่องโฟม",keywords:["กล่องโฟม","โฟมใส่อาหาร","โฟม"],category:"ขยะทั่วไปหรือจุดรับเฉพาะ",bin:"ถังขยะทั่วไป เว้นแต่มีจุดรับโฟมโดยเฉพาะ",binType:"blue",steps:"เทเศษอาหารออก และแยกจากวัสดุรีไซเคิลอื่น",note:"โฟมเปื้อนอาหารมักไม่เหมาะกับการรีไซเคิลทั่วไป"},
+{name:"ซองขนม",keywords:["ซองขนม","ถุงขนม","ซองมันฝรั่ง","ซองบะหมี่"],category:"ขยะทั่วไป",bin:"ถังขยะทั่วไป",binType:"blue",steps:"เทเศษขนมออก และทิ้งตามระบบขยะทั่วไป",note:"ซองขนมหลายชนิดเป็นวัสดุหลายชั้นและรีไซเคิลยาก"},
+{name:"แก้วพลาสติก",keywords:["แก้วพลาสติก","แก้วน้ำพลาสติก","แก้วชา"],category:"ขยะรีไซเคิลตามชนิดวัสดุ",bin:"จุดรับพลาสติกที่รองรับชนิดของแก้ว",binType:"special",steps:"เทเครื่องดื่มออก ล้างให้สะอาด แยกหลอดและฝาตามข้อกำหนด",note:"ตรวจสอบชนิดพลาสติกและข้อกำหนดของจุดรับ"},
+{name:"หลอดพลาสติก",keywords:["หลอด","หลอดพลาสติก"],category:"ขยะทั่วไป",bin:"ถังขยะทั่วไป",binType:"blue",steps:"รวบรวมและทิ้งในถังขยะทั่วไป",note:"หลอดมีขนาดเล็กและมักไม่คุ้มต่อการคัดแยกรีไซเคิล"},
+{name:"ถ่านไฟฉาย",keywords:["ถ่านไฟฉาย","ถ่าน aa","ถ่าน aaa","แบตเตอรี่ก้อน"],category:"ขยะอันตราย",bin:"จุดรับขยะอันตรายหรือจุดรับแบตเตอรี่",binType:"red",steps:"แยกเก็บจากขยะทั่วไป และนำส่งจุดรับเฉพาะ",note:"ห้ามแกะ เผา หรือทิ้งปะปนกับขยะทั่วไป"},
+{name:"แบตเตอรี่โทรศัพท์",keywords:["แบตเตอรี่มือถือ","แบตเตอรี่โทรศัพท์","แบตเตอรี่ลิเธียม"],category:"ขยะอันตราย",bin:"จุดรับแบตเตอรี่หรือขยะอิเล็กทรอนิกส์",binType:"special",steps:"นำส่งจุดรับเฉพาะตามคำแนะนำของผู้ให้บริการ",note:"ห้ามเจาะ บีบ หรือเผาแบตเตอรี่"},
+{name:"โทรศัพท์เก่า",keywords:["โทรศัพท์เก่า","มือถือเก่า","โทรศัพท์มือถือ","สมาร์ตโฟน"],category:"ขยะอิเล็กทรอนิกส์",bin:"จุดรับขยะอิเล็กทรอนิกส์",binType:"special",steps:"สำรองข้อมูลและลบข้อมูลส่วนตัวก่อนส่งมอบ ถอดแบตเตอรี่เฉพาะเมื่อออกแบบให้ถอดได้",note:"ไม่ควรทิ้งรวมกับขยะทั่วไป"},
+{name:"หลอดไฟ",keywords:["หลอดไฟ","หลอดนีออน","หลอดฟลูออเรสเซนต์","หลอด led"],category:"ขยะอันตรายหรือขยะเฉพาะ",bin:"จุดรับหลอดไฟหรือขยะอันตราย",binType:"special",steps:"เก็บแยกจากขยะทั่วไป และส่งจุดรับเฉพาะ",note:"หลอดบางชนิดมีสารที่ต้องจัดการเป็นพิเศษ ระวังแตก"},
+{name:"กระป๋องสเปรย์",keywords:["กระป๋องสเปรย์","สเปรย์","กระป๋องยาฆ่าแมลง"],category:"ขยะอันตราย",bin:"จุดรับขยะอันตรายตามข้อกำหนดท้องถิ่น",binType:"special",steps:"แยกเก็บและนำส่งจุดรับที่กำหนด",note:"ห้ามเจาะ เผา หรือบีบอัดกระป๋อง"},
+{name:"ขวดน้ำมันพืช",keywords:["ขวดน้ำมัน","ขวดน้ำมันพืช","น้ำมันพืช"],category:"ขยะรีไซเคิลตามจุดรับ",bin:"จุดรับพลาสติกที่รองรับชนิดขวด",binType:"special",steps:"เทน้ำมันออกให้หมด ทำความสะอาด และทำให้แห้ง",note:"อย่าเทน้ำมันใช้แล้วลงท่อระบายน้ำ"},
+{name:"เสื้อผ้าเก่า",keywords:["เสื้อผ้า","เสื้อเก่า","กางเกงเก่า","ผ้าเก่า"],category:"ใช้ซ้ำหรือจุดรับสิ่งทอ",bin:"บริจาคหรือจุดรับสิ่งทอ",binType:"special",steps:"คัดแยกเสื้อผ้าที่ยังใช้ได้เพื่อนำไปบริจาค ส่วนที่ใช้ไม่ได้ให้ตรวจสอบจุดรับสิ่งทอ",note:"ไม่ควรถือว่าเสื้อผ้าทุกชนิดรีไซเคิลได้"},
+{name:"รองเท้าเก่า",keywords:["รองเท้า","รองเท้าเก่า","รองเท้าผ้าใบ"],category:"ใช้ซ้ำหรือจุดรับเฉพาะ",bin:"จุดรับบริจาคหรือจุดรับรองเท้า",binType:"special",steps:"ตรวจสอบสภาพ หากยังใช้ได้ให้นำไปบริจาค",note:"ตรวจสอบว่าจุดรับรองเท้ารับสภาพแบบใด"},
+{name:"หน้ากากอนามัยใช้แล้ว",keywords:["หน้ากาก","หน้ากากอนามัย","แมสก์"],category:"ขยะทั่วไป",bin:"ถังขยะทั่วไปตามคำแนะนำของพื้นที่",binType:"blue",steps:"แยกจากวัสดุรีไซเคิลและทิ้งในถังที่กำหนด",note:"ไม่ควรนำกลับมาใช้ซ้ำ"},
+{name:"กระดาษทิชชู่ใช้แล้ว",keywords:["ทิชชู่","กระดาษทิชชู่","ทิชชู"],category:"ขยะทั่วไป",bin:"ถังขยะทั่วไป",binType:"blue",steps:"ทิ้งในถังขยะทั่วไป",note:"กระดาษทิชชู่ใช้แล้วไม่เหมาะกับการรีไซเคิลทั่วไป"},
+{name:"กระป๋องอาหาร",keywords:["กระป๋องอาหาร","กระป๋องปลากระป๋อง","กระป๋องเหล็ก"],category:"ขยะรีไซเคิล",bin:"ถังรีไซเคิลหรือจุดรับโลหะ",binType:"yellow",steps:"เทอาหารออก ล้างให้สะอาด และทำให้แห้ง",note:"ระวังขอบโลหะที่อาจคม"},
+{name:"ถุงพลาสติกเปื้อนอาหาร",keywords:["ถุงเปื้อนอาหาร","ถุงแกง","ถุงใส่อาหาร"],category:"ขยะทั่วไป",bin:"ถังขยะทั่วไป",binType:"blue",steps:"เทเศษอาหารออกและทิ้งตามระบบขยะทั่วไป",note:"ถุงที่เปื้อนอาหารมากไม่เหมาะกับการรีไซเคิล"},
+{name:"จานชามแตก",keywords:["จานแตก","ชามแตก","แก้วแตก","เซรามิก"],category:"ขยะทั่วไปหรือจุดรับเฉพาะ",bin:"ถังขยะทั่วไปตามข้อกำหนดพื้นที่ หรือจุดรับเศษวัสดุ",binType:"special",steps:"ห่อหรือบรรจุให้ปลอดภัยก่อนทิ้ง และแจ้งให้ผู้เก็บขยะทราบ",note:"ระวังเศษคม ไม่ทิ้งปะปนกับเศษแก้วรีไซเคิล"},
+{name:"ยาและบรรจุภัณฑ์ยา",keywords:["ยา","ยาเก่า","ยาเสื่อม","ยาเหลือ"],category:"ขยะยา",bin:"จุดรับคืนยาหรือสถานพยาบาลที่รับกำจัด",binType:"special",steps:"แยกยาออกจากขยะทั่วไป และสอบถามเภสัชกรหรือสถานพยาบาลเรื่องจุดรับคืน",note:"ไม่ควรเทยาลงชักโครกหรือท่อระบายน้ำ"},
+{name:"น้ำมันใช้แล้ว",keywords:["น้ำมันทอด","น้ำมันใช้แล้ว","น้ำมันเก่า"],category:"ขยะที่ต้องรวบรวมเฉพาะ",bin:"จุดรับน้ำมันใช้แล้ว",binType:"special",steps:"พักให้น้ำมันเย็นแล้วเก็บในภาชนะปิดสนิท เพื่อนำส่งจุดรับ",note:"ห้ามเทลงอ่างล้างจานหรือท่อระบายน้ำ"},
+{name:"ถ่านกระดุม",keywords:["ถ่านกระดุม","แบตเตอรี่กระดุม","ถ่านนาฬิกา"],category:"ขยะอันตราย",bin:"จุดรับแบตเตอรี่หรือขยะอันตราย",binType:"red",steps:"เก็บแยกและนำส่งจุดรับเฉพาะ",note:"เก็บให้พ้นมือเด็ก ห้ามแกะหรือเผา"}
 ];
 
-// ระบบ Popup
+const binConfig = {
+  yellow:{name:"ถังสีเหลือง",type:"ขยะรีไซเคิล",color:"#e6b82e",bg:"#fff8df",symbol:"♻",hint:"แยกวัสดุที่สะอาดและแห้งก่อนทิ้ง"},
+  green:{name:"ถังสีเขียว",type:"ขยะอินทรีย์",color:"#29945c",bg:"#eaf7ef",symbol:"✿",hint:"เหมาะกับเศษอาหารและวัสดุอินทรีย์ตามระบบพื้นที่"},
+  blue:{name:"ถังสีน้ำเงิน",type:"ขยะทั่วไป",color:"#4389c7",bg:"#edf5fc",symbol:"●",hint:"สำหรับขยะทั่วไปที่ไม่เข้าระบบรีไซเคิลหรือขยะอันตราย"},
+  red:{name:"ถัง/จุดรับสีแดง",type:"ขยะอันตราย",color:"#d94b4b",bg:"#fff0ef",symbol:"!",hint:"นำส่งจุดรับขยะอันตรายที่กำหนด ห้ามทิ้งปะปน"},
+  special:{name:"จุดรับเฉพาะ",type:"ไม่ใช่ถังขยะทั่วไป",color:"#6b8b78",bg:"#eef4f0",symbol:"⌖",hint:"ตรวจสอบจุดรับหรือผู้รับเฉพาะก่อนนำไปส่ง"}
+};
+
+function binIllustration(config){
+  const c=config.color;
+  const symbol=config.symbol==="♻" ? '<text x="80" y="112" text-anchor="middle" font-size="43" font-weight="bold" fill="#ffffff">♻</text>'
+    : config.symbol==="✿" ? '<text x="80" y="111" text-anchor="middle" font-size="47" font-weight="bold" fill="#ffffff">✿</text>'
+    : config.symbol==="!" ? '<text x="80" y="113" text-anchor="middle" font-size="52" font-weight="bold" fill="#ffffff">!</text>'
+    : '<circle cx="80" cy="99" r="19" fill="none" stroke="#ffffff" stroke-width="7"/>';
+  return `<svg viewBox="0 0 160 170" role="img" aria-label="${config.name}" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="80" cy="155" rx="48" ry="7" fill="#203b2a" opacity=".10"/>
+    <path d="M43 48 L117 48 L108 145 Q107 151 100 151 L60 151 Q53 151 52 145 Z" fill="${c}"/>
+    <path d="M51 59 L109 59 L102 140 L58 140 Z" fill="#ffffff" opacity=".10"/>
+    <path d="M37 39 Q37 34 43 34 L117 34 Q123 34 123 39 L123 47 L37 47 Z" fill="${c}"/>
+    <rect x="68" y="25" width="24" height="7" rx="3.5" fill="${c}"/>
+    <path d="M58 67 L62 133 M80 67 L80 133 M102 67 L98 133" stroke="#ffffff" stroke-width="3" opacity=".20" stroke-linecap="round"/>
+    ${symbol}
+    <path d="M57 153 L54 160 M103 153 L106 160" stroke="#344b3a" stroke-width="4" stroke-linecap="round" opacity=".45"/>
+  </svg>`;
+}
+
+function escapeHTML(value){
+  return String(value).replace(/[&<>"']/g,char=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[char]));
+}
+
 let toastTimer;
 function showToast(message){
- const toast=document.getElementById("toast");
- toast.textContent=message;
- toast.classList.add("show");
- clearTimeout(toastTimer);
- toastTimer=setTimeout(()=>toast.classList.remove("show"),2300);
+  const toast=document.getElementById("toast");
+  toast.textContent=message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>toast.classList.remove("show"),2300);
 }
 
-// ระบบค้นหา
+function renderResult(item,index){
+  const config=binConfig[item.binType] || binConfig.special;
+  const special=item.binType==="special";
+  const visual=special
+    ? `<div class="special-hero">
+         <div class="special-icon" aria-hidden="true">⌖</div>
+         <div class="bin-kicker">คำแนะนำการทิ้ง</div>
+         <div class="special-title">นำไปที่จุดรับเฉพาะ</div>
+         <div class="special-description">${escapeHTML(item.bin)}</div>
+         <div class="bin-instruction">${escapeHTML(config.hint)}</div>
+       </div>`
+    : `<div class="bin-hero" style="--bin-color:${config.color};--bin-bg:${config.bg}">
+         <div class="bin-kicker">ภาชนะที่แนะนำ</div>
+         <div class="bin-art">${binIllustration(config)}</div>
+         <div class="bin-name">${escapeHTML(config.name)}</div>
+         <div class="bin-type">${escapeHTML(config.type)}</div>
+         <div class="bin-instruction">${escapeHTML(config.hint)}</div>
+       </div>`;
+  return `<article class="result-card" style="animation-delay:${index*.06}s">
+    <div class="result-top">
+      <div><h3>${escapeHTML(item.name)}</h3><span class="category">${escapeHTML(item.category)}</span></div>
+      <span class="result-count">ผลลัพธ์ ${index+1}</span>
+    </div>
+    ${visual}
+    <div class="detail-block">
+      <h4>🧼 วิธีเตรียมก่อนทิ้ง</h4>
+      <p>${escapeHTML(item.steps)}</p>
+    </div>
+    <div class="warning">⚠️ <strong>ข้อควรระวัง:</strong> ${escapeHTML(item.note)}</div>
+    <p class="result-note">คำแนะนำทั่วไป โปรดตรวจสอบป้ายและข้อกำหนดของถังหรือจุดรับในพื้นที่ก่อนทิ้ง</p>
+  </article>`;
+}
+
 function searchWaste(keyword){
- const input=String(keyword||"").trim().toLowerCase();
- const result=document.getElementById("result");
+  const input=String(keyword||"").trim().toLowerCase().replace(/\s+/g," ");
+  const result=document.getElementById("result");
+  if(!input){
+    result.innerHTML='<div class="empty">กรุณาพิมพ์ชื่อสิ่งของก่อนค้นหา</div>';
+    showToast("กรุณาพิมพ์คำค้นหาก่อนครับ");
+    return;
+  }
 
- if(!input){
-  result.innerHTML='<div class="empty">กรุณาพิมพ์ชื่อสิ่งของก่อนค้นหา</div>';
-  showToast("กรุณาพิมพ์คำค้นหาก่อนครับ");
-  return;
- }
+  const matches=wasteData.map(item=>{
+    const words=[item.name,...item.keywords].map(word=>word.toLowerCase());
+    let score=0;
+    if(item.name.toLowerCase()===input)score=100;
+    else if(words.includes(input))score=80;
+    else if(words.some(word=>word.startsWith(input)))score=60;
+    else if(words.some(word=>word.includes(input)))score=40;
+    else if(words.some(word=>input.includes(word)))score=20;
+    return {item,score};
+  }).filter(entry=>entry.score>0).sort((a,b)=>b.score-a.score);
 
- const matches=wasteData.map(item=>{
-  const words=[item.name,...item.keywords].map(word=>word.toLowerCase());
-  let score=0;
+  if(matches.length===0){
+    result.innerHTML='<div class="empty"><h3>ไม่พบข้อมูลขยะนี้</h3><p>ลองใช้คำค้นหาอื่น หรือพิมพ์คำให้สั้นลง</p></div>';
+    showToast("ยังไม่พบข้อมูลที่ค้นหา");
+    return;
+  }
 
-  if(item.name.toLowerCase()===input)score=100;
-  else if(words.includes(input))score=80;
-  else if(words.some(word=>word.startsWith(input)))score=60;
-  else if(words.some(word=>word.includes(input)))score=40;
-  else if(words.some(word=>input.includes(word)))score=20;
-
-  return {item,score};
- }).filter(entry=>entry.score>0).sort((a,b)=>b.score-a.score);
-
- if(matches.length===0){
-  result.innerHTML='<div class="empty"><h3>ไม่พบข้อมูลขยะนี้</h3><p>ลองใช้คำค้นหาอื่น หรือพิมพ์คำให้สั้นลง</p></div>';
-  showToast("ยังไม่พบข้อมูลที่ค้นหา");
-  return;
- }
-
- result.innerHTML=matches.map(({item},index)=>`
-  <div class="result-card" style="animation-delay:${index*.06}s">
-   <h3>♻️ ${item.name}</h3>
-   <span class="category">${item.category}</span>
-   <div class="bin-box">🗑️ ควรทิ้งที่:<br>${item.bin}</div>
-   <p><strong>วิธีจัดการ</strong><br>${item.steps}</p>
-   <p class="warning">⚠️ ข้อควรระวัง: ${item.note}</p>
-  </div>
- `).join("");
-
- showToast("ค้นหาสำเร็จ พบ "+matches.length+" รายการ");
+  result.innerHTML=`<div class="result-heading"><span>♻️ ผลการค้นหา</span><span class="result-count">พบ ${matches.length} รายการ</span></div>`
+    + matches.map(({item},index)=>renderResult(item,index)).join("");
+  showToast("ค้นหาสำเร็จ พบ "+matches.length+" รายการ");
+  result.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
 
-// ปุ่มค้นหา
 const searchInput=document.getElementById("searchInput");
 document.getElementById("searchBtn").addEventListener("click",()=>{
- searchWaste(searchInput.value);
-});
-
-// กด Enter เพื่อค้นหา
-searchInput.addEventListener("keydown",event=>{
- if(event.key==="Enter"){
-  event.preventDefault();
   searchWaste(searchInput.value);
- }
 });
-
-// ปุ่มค้นหาด่วน
+searchInput.addEventListener("keydown",event=>{
+  if(event.key==="Enter"){
+    event.preventDefault();
+    searchWaste(searchInput.value);
+  }
+});
 document.querySelectorAll("[data-search]").forEach(button=>{
- button.addEventListener("click",()=>{
-  const keyword=button.getAttribute("data-search");
-  searchInput.value=keyword;
-  searchWaste(keyword);
- });
+  button.addEventListener("click",()=>{
+    const keyword=button.getAttribute("data-search");
+    searchInput.value=keyword;
+    searchWaste(keyword);
+  });
 });
 
-// ระบบเลือกรูปภาพ
 const imageInput=document.getElementById("imageInput");
 const imagePreview=document.getElementById("imagePreview");
 let currentImageURL=null;
 
 imageInput.addEventListener("change",()=>{
- const file=imageInput.files&&imageInput.files[0];
- if(!file)return;
-
- if(!file.type.startsWith("image/")){
-  showToast("กรุณาเลือกไฟล์รูปภาพเท่านั้น");
-  imageInput.value="";
-  return;
- }
-
- if(file.size>10*1024*1024){
-  showToast("รูปภาพมีขนาดใหญ่เกิน 10 MB");
-  imageInput.value="";
-  return;
- }
-
- if(currentImageURL)URL.revokeObjectURL(currentImageURL);
- currentImageURL=URL.createObjectURL(file);
-
- imagePreview.innerHTML=`
-  <img src="${currentImageURL}" alt="ภาพขยะที่เลือก">
-  <div class="image-status">✓ เลือกรูปภาพสำเร็จ</div>
-  <p>ภาพแสดงตัวอย่างเรียบร้อยแล้ว</p>
-  <p>ขณะนี้ยังไม่มีระบบ AI วิเคราะห์ภาพ</p>
-  <div class="image-actions">
-   <button type="button" class="small-btn clear-btn" id="clearImageBtn">✕ ล้างรูปภาพ</button>
-  </div>
- `;
-
- document.getElementById("clearImageBtn").addEventListener("click",clearImage);
- showToast("เลือกรูปภาพสำเร็จ");
+  const file=imageInput.files&&imageInput.files[0];
+  if(!file)return;
+  if(!file.type.startsWith("image/")){
+    showToast("กรุณาเลือกไฟล์รูปภาพเท่านั้น");
+    imageInput.value="";
+    return;
+  }
+  if(file.size>10*1024*1024){
+    showToast("รูปภาพมีขนาดใหญ่เกิน 10 MB");
+    imageInput.value="";
+    return;
+  }
+  if(currentImageURL)URL.revokeObjectURL(currentImageURL);
+  currentImageURL=URL.createObjectURL(file);
+  imagePreview.innerHTML=`
+    <img src="${currentImageURL}" alt="ภาพขยะที่เลือก">
+    <div class="image-status">✓ เลือกรูปภาพสำเร็จ</div>
+    <p>ภาพแสดงตัวอย่างเรียบร้อยแล้ว</p>
+    <p>ขณะนี้ยังไม่มีระบบ AI วิเคราะห์ภาพ</p>
+    <div class="image-actions">
+      <button type="button" class="small-btn clear-btn" id="clearImageBtn">✕ ล้างรูปภาพ</button>
+    </div>
+  `;
+  document.getElementById("clearImageBtn").addEventListener("click",clearImage);
+  showToast("เลือกรูปภาพสำเร็จ");
 });
 
-// ล้างรูปภาพ
 function clearImage(){
- if(currentImageURL){
-  URL.revokeObjectURL(currentImageURL);
-  currentImageURL=null;
- }
- imageInput.value="";
- imagePreview.innerHTML="<p>ภาพที่เลือกจะแสดงตรงนี้</p>";
- showToast("ล้างรูปภาพแล้ว");
+  if(currentImageURL){
+    URL.revokeObjectURL(currentImageURL);
+    currentImageURL=null;
+  }
+  imageInput.value="";
+  imagePreview.innerHTML="<p>ภาพที่เลือกจะแสดงตรงนี้</p>";
+  showToast("ล้างรูปภาพแล้ว");
 }
 </script>
-
 </body>
 </html>
