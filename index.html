@@ -147,7 +147,8 @@ main{max-width:760px;padding:0 15px;margin:24px auto}
   margin:14px 0;padding:17px;border-radius:16px;
   text-align:center;background:#F1F5F4;border:1px solid var(--border);
 }
-.bin-symbol{font-size:43px;margin:4px 0}
+.bin-visual{display:flex;justify-content:center;align-items:center;margin:0 auto 8px;min-height:158px}
+.bin-visual svg{display:block;width:166px;height:158px;max-width:100%;overflow:visible}
 .bin-name{font-size:21px;font-weight:bold;color:var(--navy)}
 .bin-type{font-size:12px;color:var(--muted);margin-top:4px}
 .detail-block{background:#F6F8F7;padding:13px;border-radius:12px;margin-top:10px}
@@ -338,7 +339,7 @@ footer a{color:var(--teal2);text-decoration:none}
       <option value="all">ทุกพื้นที่</option>
       <option value="ดินแดง">ดินแดง</option>
       <option value="ห้วยขวาง">ห้วยขวาง</option>
-      <option value="ปทุมวัน">ปทุมวัน</option>
+      <option value="ลาดพร้าว">ลาดพร้าว</option>
     </select>
     <button class="location-btn" id="useLocationBtn" type="button">
       ◎ ใช้ตำแหน่งของฉัน
@@ -699,12 +700,53 @@ const wasteData = [
 ========================= */
 
 const binInfo={
- yellow:{icon:"♻️",name:"ถังรีไซเคิล"},
- green:{icon:"🌿",name:"ถังอินทรีย์"},
- blue:{icon:"🗑️",name:"ถังขยะทั่วไป"},
- red:{icon:"⚠️",name:"จุดรับขยะอันตราย"},
- special:{icon:"📍",name:"จุดรับเฉพาะ"}
+ yellow:{name:"ถังรีไซเคิล",color:"#E7B94F",dark:"#B98222",label:"RECYCLE"},
+ green:{name:"ถังขยะอินทรีย์",color:"#438D58",dark:"#28643B",label:"ORGANIC"},
+ blue:{name:"ถังขยะทั่วไป",color:"#477DAD",dark:"#2B557F",label:"GENERAL"},
+ red:{name:"จุดรับขยะอันตราย",color:"#C94D4D",dark:"#923333",label:"HAZARDOUS"},
+ special:{name:"จุดรับขยะเฉพาะประเภท",color:"#168F91",dark:"#126B72",label:"SPECIAL"}
 };
+
+function renderBinIllustration(type){
+ const bin=binInfo[type]||binInfo.special;
+ const uid="bin-"+String(type||"special").replace(/[^a-z0-9]/gi,"");
+ return `
+ <div class="bin-visual" role="img" aria-label="${bin.name}">
+  <svg viewBox="0 0 180 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+   <defs>
+    <linearGradient id="${uid}-body" x1="0" y1="0" x2="1" y2="0">
+     <stop offset="0" stop-color="${bin.dark}"/>
+     <stop offset=".22" stop-color="${bin.color}"/>
+     <stop offset=".72" stop-color="${bin.color}"/>
+     <stop offset="1" stop-color="${bin.dark}"/>
+    </linearGradient>
+    <linearGradient id="${uid}-lid" x1="0" y1="0" x2="0" y2="1">
+     <stop offset="0" stop-color="#FFFFFF"/>
+     <stop offset=".35" stop-color="${bin.color}"/>
+     <stop offset="1" stop-color="${bin.dark}"/>
+    </linearGradient>
+    <filter id="${uid}-shadow" x="-30%" y="-30%" width="160%" height="170%">
+     <feGaussianBlur stdDeviation="3"/>
+    </filter>
+   </defs>
+   <ellipse cx="91" cy="157" rx="48" ry="7" fill="#142D3A" opacity=".15" filter="url(#${uid}-shadow)"/>
+   <path d="M48 43 L132 43 L124 143 Q123 150 115 150 L65 150 Q57 150 56 143 Z"
+     fill="url(#${uid}-body)" stroke="${bin.dark}" stroke-width="2"/>
+   <path d="M63 52 L69 140" stroke="#FFFFFF" stroke-width="4" opacity=".18" stroke-linecap="round"/>
+   <path d="M112 52 L107 140" stroke="#142D3A" stroke-width="4" opacity=".13" stroke-linecap="round"/>
+   <path d="M42 34 Q42 29 49 28 L131 28 Q138 29 138 34 L135 43 L45 43 Z"
+     fill="url(#${uid}-lid)" stroke="${bin.dark}" stroke-width="2"/>
+   <path d="M72 26 Q73 15 82 15 L98 15 Q107 15 108 26"
+     fill="none" stroke="${bin.dark}" stroke-width="7" stroke-linecap="round"/>
+   <path d="M78 25 L102 25" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+   <rect x="67" y="72" width="47" height="38" rx="7" fill="#FFFFFF" opacity=".92"/>
+   <text x="90.5" y="88" text-anchor="middle" font-size="13" font-weight="700" fill="${bin.dark}">${type==="yellow"?"↻":type==="green"?"✿":type==="red"?"!":type==="blue"?"●":"+"}</text>
+   <path d="M74 96 H107" stroke="${bin.dark}" stroke-width="1.5" opacity=".55"/>
+   <text x="90.5" y="104" text-anchor="middle" font-size="5.5" font-weight="700" letter-spacing=".45" fill="${bin.dark}">${bin.label}</text>
+   <path d="M65 151 L65 157 M115 151 L115 157" stroke="${bin.dark}" stroke-width="4" stroke-linecap="round"/>
+  </svg>
+ </div>`;
+}
 
 /* =========================
    จุดรับขยะ
@@ -712,22 +754,74 @@ const binInfo={
 
 const dropoffPoints=[
 {
+ id:"dindaeng-office",
+ name:"จุดรับ E-Waste สำนักงานเขตดินแดง",
+ district:"ดินแดง",
+ search:"สำนักงานเขตดินแดง กรุงเทพมหานคร",
+ address:"สำนักงานเขตดินแดง ถนนประชาสงเคราะห์ แขวงดินแดง เขตดินแดง กรุงเทพมหานคร",
+ materials:["battery","electronics"],
+ status:"กทม. ระบุว่ามีจุดรับ E-Waste ที่สำนักงานเขต",
+ source:"https://greener.bangkok.go.th/waste-recycle/e-waste/"
+},
+{
+ id:"huaikhwang-office",
+ name:"จุดรับ E-Waste สำนักงานเขตห้วยขวาง",
+ district:"ห้วยขวาง",
+ search:"สำนักงานเขตห้วยขวาง กรุงเทพมหานคร",
+ address:"สำนักงานเขตห้วยขวาง ถนนประชาอุทิศ แขวงห้วยขวาง เขตห้วยขวาง กรุงเทพมหานคร",
+ materials:["battery","electronics"],
+ status:"กทม. ระบุว่ามีจุดรับ E-Waste ที่สำนักงานเขต",
+ source:"https://greener.bangkok.go.th/waste-recycle/e-waste/"
+},
+{
+ id:"latphrao-office",
+ name:"จุดรับ E-Waste สำนักงานเขตลาดพร้าว",
+ district:"ลาดพร้าว",
+ search:"สำนักงานเขตลาดพร้าว 208 ซอยนาคนิวาส 8 กรุงเทพมหานคร",
+ address:"208 ซอยนาคนิวาส 8 แขวงลาดพร้าว เขตลาดพร้าว กรุงเทพมหานคร 10230",
+ materials:["battery","electronics"],
+ status:"กทม. ระบุว่ามีจุดรับ E-Waste ที่สำนักงานเขต",
+ source:"https://greener.bangkok.go.th/waste-recycle/e-waste/"
+},
+{
+ id:"central-eastville-ewaste",
+ name:"จุดรับ E-Waste เซ็นทรัล อีสต์วิลล์",
+ district:"ลาดพร้าว",
+ search:"Central Eastville E-Center Bangkok",
+ address:"ชั้น 2 โซน E-Center ศูนย์การค้าเซ็นทรัล อีสต์วิลล์ เขตลาดพร้าว กรุงเทพมหานคร",
+ materials:["battery","electronics"],
+ status:"มีรายชื่อจุดรับจาก AIS — ชั้น 2 โซน E-Center",
+ source:"https://sustainability.ais.co.th/th/sustainability-projects/ais-ewaste/collection-channels"
+},
+{
+ id:"central-eastville-recycleday",
+ name:"Recycle Day @ Central EastVille",
+ district:"ลาดพร้าว",
+ search:"Recycle Day Central EastVille Bangkok",
+ address:"ศูนย์การค้าเซ็นทรัล อีสต์วิลล์ ถนนประดิษฐ์มนูธรรม เขตลาดพร้าว กรุงเทพมหานคร",
+ materials:["plastic","paper","metal"],
+ status:"มีข้อมูลว่าเป็นจุดรับรีไซเคิล — โปรดตรวจสอบชนิดวัสดุที่รับก่อนเดินทาง",
+ source:"https://www.google.com/maps/search/?api=1&query=Recycle+Day+Central+EastVille+Bangkok"
+},
+{
+ id:"sirirat-recycle",
+ name:"ศิริรัตน์ รีไซเคิล",
+ district:"ลาดพร้าว",
+ search:"ศิริรัตน์ รีไซเคิล 5 7 9 ซอยสังคมสงเคราะห์ 20 ลาดพร้าว",
+ address:"5, 7, 9 ซอยสังคมสงเคราะห์ 20 ถนนลาดพร้าว แขวงลาดพร้าว เขตลาดพร้าว กรุงเทพมหานคร 10230",
+ materials:["plastic","metal"],
+ status:"ร้านรับซื้อของเก่า/รีไซเคิล — โทรยืนยันชนิดวัสดุก่อนนำไป",
+ source:"https://www.yellowpages.co.th/profile/ศิริรัตน์-รีไซเคิล-8R2neEbVP",
+ phone:"02-539-1163"
+},
+{
  id:"garden",
  name:"Recycle Day @ g Garden",
  district:"ห้วยขวาง",
  search:"g Garden Rama 9 Bangkok",
  address:"ย่านพระราม 9 เขตห้วยขวาง กรุงเทพมหานคร",
  materials:["plastic","paper","metal"],
- status:"ต้องตรวจสอบ"
-},
-{
- id:"block28",
- name:"Recycle Day @ Block28",
- district:"ปทุมวัน",
- search:"Block28 Chula Bangkok",
- address:"Block28 ซอยจุฬาลงกรณ์ 5 เขตปทุมวัน กรุงเทพมหานคร",
- materials:["plastic","paper","metal"],
- status:"ต้องตรวจสอบ"
+ status:"ต้องตรวจสอบชนิดวัสดุและเวลาให้บริการก่อนเดินทาง"
 }
 ];
 
@@ -739,7 +833,7 @@ let currentItem=null;
 let currentPosition=null;
 let imageUrl=null;
 let map=null;
-let markers=[];
+let markers=new Map();
 let userMarker=null;
 
 const $=id=>document.getElementById(id);
@@ -773,12 +867,31 @@ function findWaste(query){
  const q=normalize(query);
  if(!q)return null;
 
- return wasteData.find(item=>
-  normalize(item.name).includes(q)||
-  item.keywords.some(word=>
-   normalize(word).includes(q)
-  )
- );
+ const words=q.split(" ").filter(Boolean);
+
+ const scored=wasteData.map(item=>{
+  const name=normalize(item.name);
+  const keywords=(item.keywords||[]).map(normalize);
+  const category=normalize(item.category);
+  const tags=(item.tags||[]).map(normalize);
+
+  let score=0;
+
+  if(name===q)score=100;
+  else if(keywords.includes(q))score=95;
+  else if(name.includes(q))score=85;
+  else if(keywords.some(word=>word.includes(q)))score=80;
+  else if(keywords.some(word=>q.includes(word)))score=70;
+  else if(words.length>1 && words.every(word=>
+   name.includes(word)||keywords.some(key=>key.includes(word))
+  ))score=65;
+  else if(category.includes(q)||tags.includes(q))score=40;
+
+  return {item,score};
+ }).filter(result=>result.score>0)
+  .sort((a,b)=>b.score-a.score);
+
+ return scored.length?scored[0].item:null;
 }
 
 function showResult(item){
@@ -792,6 +905,7 @@ function showResult(item){
     ลองค้นหาด้วยคำอื่น
    </div>`;
   renderDropoffs();
+  loadDropoffMarkers();
   return;
  }
 
@@ -805,7 +919,7 @@ function showResult(item){
   <span class="category">${item.category}</span>
 
   <div class="bin-box">
-   <div class="bin-symbol">${bin.icon}</div>
+   ${renderBinIllustration(item.type)}
    <div class="bin-name">${bin.name}</div>
    <div class="bin-type">${item.bin}</div>
   </div>
@@ -833,6 +947,7 @@ function showResult(item){
  });
 
  renderDropoffs();
+ loadDropoffMarkers();
 }
 
 /* =========================
@@ -941,9 +1056,9 @@ function initMap(){
 
 function clearMarkers(){
  markers.forEach(marker=>{
-  map.removeLayer(marker);
+  if(map)map.removeLayer(marker);
  });
- markers=[];
+ markers.clear();
 }
 
 /* =========================
@@ -982,40 +1097,52 @@ async function geocodePoint(point){
    แสดงหมุดบนแผนที่
 ========================= */
 
-async function loadDropoffMarkers(){
+function getFilteredDropoffPoints(){
+ const district=$("districtFilter").value;
+ let points=dropoffPoints.filter(point=>
+  district==="all"||point.district===district
+ );
 
+ if(currentItem){
+  const tags=currentItem.tags||[];
+  points=points.filter(point=>
+   (point.materials||[]).some(material=>tags.includes(material))
+  );
+ }
+
+ return points;
+}
+
+async function loadDropoffMarkers(){
  if(!map)return;
 
  clearMarkers();
 
- const district=$("districtFilter").value;
+ const points=getFilteredDropoffPoints();
 
- const points=dropoffPoints.filter(point=>
-  district==="all"||point.district===district
- );
-
- if(!points.length)return;
+ if(!points.length){
+  $("locationStatus").textContent=currentItem
+   ? "ยังไม่มีจุดรับที่ตรงกับวัสดุชนิดนี้ในพื้นที่ที่เลือก"
+   : "ยังไม่มีจุดรับขยะในพื้นที่ที่เลือก";
+  return;
+ }
 
  $("locationStatus").textContent=
- "กำลังค้นหาตำแหน่งของจุดรับขยะ...";
+  "กำลังค้นหาตำแหน่งของจุดรับขยะ...";
 
  const found=[];
-
  for(const point of points){
-
   const coordinates=await geocodePoint(point);
-
   if(!coordinates)continue;
 
   const marker=L.marker(coordinates).addTo(map);
-
   marker.bindPopup(`
    <strong>${point.name}</strong><br>
    ${point.district}<br>
-   <small>พิกัดจากการค้นหาชื่อสถานที่ โปรดตรวจสอบก่อนเดินทาง</small>
+   <small>สถานะ: ${point.status} — โปรดตรวจสอบข้อมูลก่อนเดินทาง</small>
   `);
 
-  markers.push(marker);
+  markers.set(point.id,marker);
   found.push(coordinates);
  }
 
@@ -1026,11 +1153,10 @@ async function loadDropoffMarkers(){
   });
 
   $("locationStatus").textContent=
-  "พบตำแหน่ง "+found.length+" จุด โปรดตรวจสอบสถานที่จริงก่อนเดินทาง";
-
+   "แสดง "+found.length+" จุดที่ตรงกับตัวกรอง โปรดตรวจสอบสถานที่จริงก่อนเดินทาง";
  }else{
   $("locationStatus").textContent=
-  "ยังค้นหาพิกัดไม่ได้ แต่สามารถดูข้อมูลและเปิด Google Maps ได้";
+   "ยังค้นหาพิกัดไม่ได้ สามารถเปิด Google Maps จากรายการจุดรับได้";
  }
 }
 
@@ -1039,53 +1165,41 @@ async function loadDropoffMarkers(){
 ========================= */
 
 function renderDropoffs(){
-
  const container=$("dropoffResults");
-
- const district=$("districtFilter").value;
-
- let points=dropoffPoints.filter(point=>
-  district==="all"||point.district===district
- );
-
- if(currentItem){
-  const tags=currentItem.tags||[];
-
-  const matched=points.filter(point=>
-   point.materials.some(material=>tags.includes(material))
-  );
-
-  if(matched.length)points=matched;
- }
+ const points=getFilteredDropoffPoints();
 
  if(!points.length){
   container.innerHTML=`
    <div class="empty">
-    ยังไม่มีจุดรับที่ตรงกับตัวกรองนี้
+    ${currentItem
+     ? "ยังไม่มีจุดรับที่ตรงกับวัสดุชนิดนี้ในพื้นที่ที่เลือก"
+     : "ยังไม่มีจุดรับในพื้นที่นี้"}
+    <br>ข้อมูลจุดรับเพิ่มเติมจะเพิ่มเมื่อได้รับการตรวจสอบ
    </div>`;
   return;
  }
 
  container.innerHTML=points.map(point=>`
   <div class="dropoff-item">
-
    <div class="dropoff-top">
     <h3>${point.name}</h3>
     <span class="dropoff-district">${point.district}</span>
    </div>
 
-   <div class="dropoff-address">
-    📍 ${point.address}
-   </div>
+   <div class="dropoff-address">📍 ${point.address}</div>
 
    <div class="verify-note">
     ⚠️ สถานะ: ${point.status}
-    <br>ข้อมูลการรับวัสดุและเวลาให้บริการยังไม่ได้รับการยืนยัน
+    <br>ควรตรวจสอบชนิดวัสดุและเวลาให้บริการกับสถานที่ก่อนเดินทาง
+    ${point.phone ? `<br>โทร. ${point.phone}` : ""}
+    ${point.source
+     ? `<br><a href="${point.source}" target="_blank" rel="noopener noreferrer">ดูแหล่งข้อมูล</a>`
+     : ""}
    </div>
 
    <div class="dropoff-actions">
     <a class="route-link"
-     href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(point.search)}"
+     href="https://maps.google.com/?q=${encodeURIComponent(point.search)}" 
      target="_blank"
      rel="noopener noreferrer">
      เปิด Google Maps
@@ -1095,18 +1209,12 @@ function renderDropoffs(){
      ดูตำแหน่งบนแผนที่
     </button>
    </div>
-
   </div>
  `).join("");
 
  container.querySelectorAll("[data-focus]").forEach(btn=>{
   btn.addEventListener("click",()=>{
-   const index=dropoffPoints.findIndex(
-    p=>p.id===btn.dataset.focus
-   );
-
-   const marker=markers[index];
-
+   const marker=markers.get(btn.dataset.focus);
    if(marker){
     map.setView(marker.getLatLng(),16);
     marker.openPopup();
