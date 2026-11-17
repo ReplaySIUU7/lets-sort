@@ -26,7 +26,8 @@ main{max-width:1050px;margin:22px auto;padding:0 15px 40px}.section-head{display
 .route-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}.route-actions a,.route-actions button{border:0;border-radius:9px;padding:9px 12px;font-size:12px;font-weight:750;text-decoration:none;cursor:pointer}
 .route-actions a{background:var(--navy);color:white}.route-actions button{background:#dff5f1;color:#126b64}
 #map{height:430px;border-radius:14px;z-index:1;background:#e8eeee}.map-note{font-size:11px;color:var(--muted);margin:10px 2px 0;line-height:1.5}
-.results{display:grid;gap:9px;margin-top:12px}.result{border:1px solid var(--line);border-radius:13px;padding:12px;display:flex;justify-content:space-between;gap:10px;align-items:center}.result strong{font-size:13px}.result p{font-size:11px;color:var(--muted);margin:4px 0 0}.result button{border:0;background:var(--teal2);color:#126b64;border-radius:9px;padding:8px 10px;font-size:11px;font-weight:700;white-space:nowrap;cursor:pointer}
+.results{display:grid;gap:10px;margin-top:12px}.result{border:1px solid var(--line);border-radius:15px;padding:13px;display:flex;justify-content:space-between;gap:10px;align-items:center;background:#fff}.result strong{font-size:13px}.result p{font-size:11px;color:var(--muted);margin:5px 0 0;line-height:1.55}.result button{border:0;background:var(--teal2);color:#126b64;border-radius:10px;padding:10px 12px;font-size:11px;font-weight:750;white-space:nowrap;cursor:pointer}.result-status{display:inline-block;margin-top:7px;font-size:10px;color:#8a641a;background:#fff7df;border-radius:20px;padding:4px 8px}.result-status.verified{color:#126b64;background:#dff5f1}.map-selection-tip{font-size:12px;color:#42616a;background:#effaf8;border-radius:11px;padding:10px 12px;margin:10px 0 0;line-height:1.5}.place-modal{text-align:left}.place-modal .place-modal-title{text-align:center}.place-modal .place-modal-actions{display:flex;gap:8px;margin-top:15px}.place-modal .place-modal-actions button{flex:1;padding:12px 8px}.place-modal .cancel-place{background:#eef2f3;color:#33464e}.place-modal .place-meta{background:#f5f9f9;border-radius:12px;padding:11px;margin:10px 0;font-size:12px;line-height:1.7;color:#425a63}.place-modal .place-warning{font-size:11px;color:#8a641a;background:#fff7df;border-radius:10px;padding:10px;line-height:1.5}
+.chooser-modal{width:min(460px,100%);text-align:left;padding:18px;max-height:86vh}.chooser-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.chooser-head h3{margin:2px 0 4px;font-size:18px}.chooser-sub{font-size:12px;color:var(--muted);line-height:1.5;margin:0 0 12px}.chooser-list{display:grid;gap:9px}.chooser-item{border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;align-items:center;gap:10px;background:#fff}.chooser-item .chooser-copy{min-width:0;flex:1}.chooser-item strong{font-size:13px;display:block;color:var(--navy);line-height:1.4}.chooser-item small{font-size:11px;color:var(--muted);display:block;margin-top:4px;line-height:1.45}.chooser-item button{border:0;border-radius:10px;padding:10px 12px;background:var(--teal2);color:#126b64;font-weight:800;font-size:12px;white-space:nowrap}.chooser-close{width:100%;margin-top:12px;background:#eef2f3!important;color:#33464e!important}.chooser-count{font-size:11px;color:var(--muted);white-space:nowrap}
 .empty{padding:18px;text-align:center;color:var(--muted);font-size:13px;background:#f8fbfb;border-radius:12px}.status{font-size:11px;color:var(--muted);margin:9px 2px}
 .category-action{display:none;margin-top:14px}.category-action.show{display:block}.action-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow)}.action-card p{font-size:12px;color:var(--muted);margin:0 0 12px}.primary-action{width:100%;border:0;border-radius:12px;background:var(--teal);color:#fff;padding:14px;font-size:15px;font-weight:750;cursor:pointer}.waste-box{display:none;margin-top:14px}.waste-box.show{display:block}.waste-result{background:#f4faf9;border:1px solid #d9eeea;border-radius:13px;padding:13px;margin-top:10px;font-size:13px;line-height:1.6}.waste-result b{color:var(--navy)}
 footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
@@ -79,7 +80,7 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
       <div class="route-warning" id="routeWarning" style="display:none"></div>
       <div class="route-actions" id="routeActions"></div>
     </div>
-    <div id="map" style="margin-top:12px"></div>
+    <div id="map" style="margin-top:12px"></div><div class="map-selection-tip">หลังค้นหา รายการสถานที่จะเด้งขึ้นมาให้เลือกทันที หรือแตะหมุดบนแผนที่เพื่อดูรายละเอียดได้</div>
     <div class="map-note">หมุดจะแสดงเฉพาะจุดที่มีพิกัดตัวเลข ส่วนจุดที่ยังไม่มีพิกัดจะแสดงเป็นรายการและเปิดค้นหาต่อใน Google Maps ได้ ทุกจุดที่ขึ้น “รอตรวจสอบ” ยังไม่ใช่ข้อมูลยืนยันหน้างาน</div>
     <div id="resultList" class="results"><div class="empty">ยังไม่มีข้อมูลสถานที่ในหมวดนี้<br>เมื่อเพิ่มพิกัดจริงแล้ว จุดต่าง ๆ จะแสดงบนแผนที่ตรงนี้</div></div>
     <div class="status" id="locationStatus">พื้นที่นำร่อง: ดินแดง · ห้วยขวาง · ลาดพร้าว</div>
@@ -109,6 +110,25 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
   </div>
 </div>
 
+<div class="modal-backdrop" id="chooserModal" style="z-index:1100">
+  <div class="modal chooser-modal">
+    <div class="chooser-head"><div><h3 id="chooserTitle">เลือกสถานที่ใกล้คุณ</h3><p class="chooser-sub" id="chooserSubtitle">แตะเลือกสถานที่เพื่อดูรายละเอียดและยืนยันในขั้นตอนถัดไป</p></div><span class="chooser-count" id="chooserCount"></span></div>
+    <div class="chooser-list" id="chooserList"></div>
+    <button type="button" class="chooser-close" id="closeChooser">ปิดหน้าต่าง</button>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="placeModal">
+  <div class="modal place-modal">
+    <div class="place-modal-title"><div class="big" id="placeModalIcon">📍</div><h3 id="placeModalName">รายละเอียดสถานที่</h3></div>
+    <div class="place-meta" id="placeModalMeta"></div>
+    <div class="place-warning" id="placeModalWarning" style="display:none"></div>
+    <div class="place-modal-actions">
+      <button type="button" class="cancel-place" id="cancelPlace">ยกเลิก</button>
+      <button type="button" id="confirmPlace">ยืนยันสถานที่</button>
+    </div>
+  </div>
+</div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 // ============================================================
@@ -471,7 +491,7 @@ function renderBinIllustration(type){
 
 const TYPE_LABEL={bin:"จุดทิ้งขยะ",toilet:"ห้องน้ำสาธารณะ",atm:"ATM"};
 const TYPE_ICON={bin:"🗑️",toilet:"🚻",atm:"🏧"};
-let selectedType="bin",markers=[],userMarker=null,routeLine=null,routeDestinationMarker=null,lastUserPosition=null;
+let selectedType="bin",markers=[],userMarker=null,routeLine=null,routeDestinationMarker=null,lastUserPosition=null,selectedPlace=null;
 const map=L.map("map").setView([13.769,100.555],12);
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(map);
 const markerLayer=L.layerGroup().addTo(map);
@@ -531,7 +551,9 @@ function currentPlaces(){
  return PLACES.filter(p=>p.type===selectedType&&(district==="all"||p.district===district)&&(selectedType!=="atm"||bank==="all"||p.bank===bank));
 }
 function renderPlaces(inputPlaces){
- markerLayer.clearLayers();const list=document.getElementById("resultList");const places=inputPlaces||currentPlaces();
+ markerLayer.clearLayers();
+ const list=document.getElementById("resultList");
+ const places=inputPlaces||currentPlaces();
  document.getElementById("countLabel").textContent=places.length+" จุด";
  list.innerHTML="";
  if(!places.length){list.innerHTML='<div class="empty">ยังไม่พบข้อมูลในหมวดนี้ ลองเปลี่ยนเขตหรือช่วยเราเพิ่มจุดได้</div>';return;}
@@ -540,23 +562,96 @@ function renderPlaces(inputPlaces){
   const hasCoords=Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng));
   let m=null;
   if(hasCoords){
-   m=L.marker([Number(p.lat),Number(p.lng)]).addTo(markerLayer);mapped.push(p);
+   const pinColor=p.status==="verified"?"#20a99a":"#e0a52f";
+   m=L.circleMarker([Number(p.lat),Number(p.lng)],{radius:10,color:"#ffffff",weight:3,fillColor:pinColor,fillOpacity:1}).addTo(markerLayer);
+   mapped.push(p);
+   m.bindTooltip(p.name,{direction:"top",offset:[0,-8]});
+   m.on("click",()=>openPlaceDetails(p));
   }
-  const distance=p.distanceKm!=null?`${p.distanceKm.toFixed(1)} กม.`:null;
-  const detail=[p.district,p.bank,p.services?.join(" / "),distance,p.note].filter(Boolean).join(" · ");
-  if(m)m.bindPopup(`<b>${safeText(p.name)}</b><br>${safeText(detail)}<br><small>${p.status==="verified"?"ตรวจสอบแล้ว":"รอตรวจสอบ"}</small>`);
+  const detail=[p.district,p.bank,p.floor,p.services?.join(" / "),p.note].filter(Boolean).join(" · ");
+  const status=p.status==="verified"?"ตรวจสอบแล้ว":"รอตรวจสอบ";
   const el=document.createElement("div");el.className="result";
-  const mapUrl=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.mapQuery||p.name)}`;
-  el.innerHTML=`<div><strong>${TYPE_ICON[p.type]||"📍"} ${safeText(p.name)}</strong><p>${safeText(detail)} · ${p.status==="verified"?"ตรวจสอบแล้ว":"รอตรวจสอบ"}${hasCoords?" · มีหมุดโดยประมาณ":" · ยังไม่มีพิกัดตัวเลข"}</p></div><button type="button">${hasCoords?"ดูบนแผนที่":"เปิดแผนที่นำทาง"}</button>`;
+  el.innerHTML=`<div style="min-width:0;flex:1"><strong>${TYPE_ICON[p.type]||"📍"} ${safeText(p.name)}</strong><p>${safeText(detail||"ยังไม่มีรายละเอียดเพิ่มเติม")}</p><span class="result-status ${p.status==="verified"?"verified":""}">${status}${hasCoords?" · มีหมุดบนแผนที่":" · ยังไม่มีพิกัด"}</span></div><button type="button">ดูรายละเอียด</button>`;
   el.querySelector("button").addEventListener("click",()=>{
-   if(hasCoords){map.setView([Number(p.lat),Number(p.lng)],16);m.openPopup();}
-   else window.open(mapUrl,"_blank","noopener");
+   if(hasCoords){map.setView([Number(p.lat),Number(p.lng)],16);if(m)m.openTooltip();}
+   openPlaceDetails(p);
   });
   list.appendChild(el);
  });
  if(mapped.length===1)map.setView([Number(mapped[0].lat),Number(mapped[0].lng)],14);
  else if(mapped.length>1){const bounds=L.latLngBounds(mapped.map(p=>[Number(p.lat),Number(p.lng)]));map.fitBounds(bounds.pad(.18));}
 }
+function openPlaceChooser(places){
+ const list=document.getElementById("chooserList");
+ const labels={bin:"จุดทิ้งขยะ",toilet:"ห้องน้ำสาธารณะ",atm:"ตู้ ATM"};
+ document.getElementById("chooserTitle").textContent=`เลือก${labels[selectedType]||"สถานที่"}`;
+ document.getElementById("chooserSubtitle").textContent="เลือกจากรายการนี้เพื่อดูรายละเอียด จากนั้นจึงกดยืนยันหรือยกเลิกได้อีกครั้ง";
+ document.getElementById("chooserCount").textContent=`${places.length} จุด`;
+ list.innerHTML="";
+ if(!places.length){list.innerHTML='<div class="empty">ยังไม่พบสถานที่ในหมวดนี้</div>';}
+ places.forEach(place=>{
+  const hasCoords=Number.isFinite(Number(place.lat))&&Number.isFinite(Number(place.lng));
+  const status=place.status==="verified"?"ตรวจสอบแล้ว":"รอตรวจสอบ";
+  const sub=[place.district,place.bank,place.floor||place.locationDetail,status,hasCoords?"มีหมุดบนแผนที่":"ยังไม่มีพิกัด"].filter(Boolean).join(" · ");
+  const item=document.createElement("div");item.className="chooser-item";
+  item.innerHTML=`<div class="chooser-copy"><strong>${TYPE_ICON[place.type]||"📍"} ${safeText(place.name)}</strong><small>${safeText(sub)}</small></div><button type="button">เลือก</button>`;
+  item.querySelector("button").addEventListener("click",()=>{
+   document.getElementById("chooserModal").classList.remove("show");
+   if(hasCoords){map.setView([Number(place.lat),Number(place.lng)],16);}
+   setTimeout(()=>openPlaceDetails(place),120);
+  });
+  list.appendChild(item);
+ });
+ document.getElementById("chooserModal").classList.add("show");
+}
+function closePlaceChooser(){document.getElementById("chooserModal").classList.remove("show");}
+document.getElementById("closeChooser").addEventListener("click",closePlaceChooser);
+document.getElementById("chooserModal").addEventListener("click",e=>{if(e.target.id==="chooserModal")closePlaceChooser();});
+
+function openPlaceDetails(place){
+ selectedPlace=place;
+ document.getElementById("placeModalIcon").textContent=TYPE_ICON[place.type]||"📍";
+ document.getElementById("placeModalName").textContent=place.name;
+ const distance=place.status==="verified"&&lastUserPosition&&Number.isFinite(Number(place.lat))&&Number.isFinite(Number(place.lng))
+  ?distanceKm(lastUserPosition.lat,lastUserPosition.lng,Number(place.lat),Number(place.lng)).toFixed(1)+" กม. (ระยะเส้นตรง)":null;
+ const details=[
+  ["พื้นที่",place.district||"ยังไม่มีข้อมูล"],
+  ["ธนาคาร",place.bank],
+  ["ชั้น / จุดตั้ง",place.floor||place.locationDetail||"ยังไม่มีข้อมูลยืนยัน"],
+  ["ระยะทาง",distance],
+  ["ข้อมูลเพิ่มเติม",place.note||"ยังไม่มีรายละเอียด"]
+ ].filter(row=>row[1]);
+ document.getElementById("placeModalMeta").innerHTML=details.map(row=>`<b>${safeText(row[0])}:</b> ${safeText(row[1])}`).join("<br>");
+ const warning=document.getElementById("placeModalWarning");
+ if(place.status!=="verified"||!Number.isFinite(Number(place.lat))||!Number.isFinite(Number(place.lng))){
+  warning.style.display="block";
+  warning.textContent="ข้อมูลสถานที่นี้ยังรอตรวจสอบ และ/หรือยังไม่มีพิกัดที่ยืนยันแล้ว ปุ่มยืนยันจะเปิดแผนที่ค้นหาชื่อสถานที่ ไม่ใช่การยืนยันว่าจุดบริการพร้อมใช้งาน";
+ }else{warning.style.display="none";}
+ document.getElementById("placeModal").classList.add("show");
+}
+function closePlaceDetails(){
+ document.getElementById("placeModal").classList.remove("show");
+ selectedPlace=null;
+}
+document.getElementById("cancelPlace").addEventListener("click",closePlaceDetails);
+document.getElementById("placeModal").addEventListener("click",e=>{if(e.target.id==="placeModal")closePlaceDetails();});
+document.getElementById("confirmPlace").addEventListener("click",()=>{
+ if(!selectedPlace)return;
+ const place=selectedPlace;
+ closePlaceDetails();
+ if(place.status==="verified"&&Number.isFinite(Number(place.lat))&&Number.isFinite(Number(place.lng))&&lastUserPosition){
+  drawRouteTo(place,lastUserPosition);
+ }else{
+  const url=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.mapQuery||place.name)}`;
+  window.open(url,"_blank","noopener");
+  document.getElementById("routeCard").classList.add("show");
+  document.getElementById("routeTitle").textContent="เปิดค้นหาสถานที่ใน Google Maps";
+  document.getElementById("routeDetail").textContent="จุดนี้ยังไม่มีพิกัดและข้อมูลยืนยันเพียงพอ โปรดตรวจสอบตำแหน่งและการเข้าใช้ก่อนเดินทาง";
+  document.getElementById("routeWarning").style.display="block";
+  document.getElementById("routeWarning").textContent="สถานะรอตรวจสอบ — ยังไม่ใช่จุดหมายที่ยืนยันแล้ว";
+  document.getElementById("routeActions").innerHTML="";
+ }
+});
 function setType(type){
  selectedType=type==="waste"?"bin":type;
  document.querySelectorAll(".category").forEach(b=>b.classList.toggle("active",b.dataset.type===type));
@@ -587,6 +682,8 @@ document.getElementById("bankFilter").addEventListener("change",renderPlaces);
 function searchNearby(){
  const mapPanel=document.getElementById("mapPanel");
  mapPanel.style.display="block";
+ // The map is initialized while its panel is hidden; recalculate its size after showing it.
+ setTimeout(()=>map.invalidateSize(true),250);
  document.getElementById("locationStatus").textContent="กำลังค้นหาสถานที่ใกล้ตำแหน่งของคุณ...";
  renderPlaces();
  if(!navigator.geolocation){
@@ -595,8 +692,10 @@ function searchNearby(){
  }
  navigator.geolocation.getCurrentPosition(pos=>{
    const {latitude,longitude}=pos.coords;
+   lastUserPosition={lat:latitude,lng:longitude};
    if(userMarker)map.removeLayer(userMarker);
    userMarker=L.circleMarker([latitude,longitude],{radius:8,color:"#147cbd",fillColor:"#48a9e8",fillOpacity:1}).addTo(map).bindPopup("ตำแหน่งของคุณ");
+   map.invalidateSize(true);
    map.setView([latitude,longitude],15);
    userMarker.openPopup();
    const candidates=currentPlaces();
@@ -607,6 +706,7 @@ function searchNearby(){
      ? `พบ ${withCoords.length} จุดที่มีพิกัด และอีก ${withoutCoords.length} จุดที่ยังไม่มีพิกัดตัวเลข (เปิดแผนที่ค้นหาจากชื่อได้)`
      : `พบข้อมูล ${withoutCoords.length} จุด แต่ยังไม่มีพิกัดตัวเลขที่ยืนยันได้ จึงเปิดแผนที่จากชื่อสถานที่แทน`;
    renderPlaces(nearby);
+   openPlaceChooser(nearby);
    awardDailyXP();
  },()=>{
    document.getElementById("locationStatus").textContent="ระบุตำแหน่งไม่ได้ โปรดอนุญาต Location ในเบราว์เซอร์ แล้วลองอีกครั้ง";
