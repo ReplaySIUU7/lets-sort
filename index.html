@@ -4,415 +4,140 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#142D3A">
-<meta name="description" content="Let's Sort ค้นหาขยะ วิธีคัดแยก และจุดรับขยะใกล้คุณ">
-<title>Let's Sort | Smart Waste Guide</title>
-
-<!-- Leaflet: ระบบแผนที่ ไม่ต้องใช้ API Key -->
+<title>NearMe — Everything You Need, Nearby</title>
+<link rel="preconnect" href="https://unpkg.com">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-
 <style>
-*{box-sizing:border-box}
-:root{
-  --navy:#142D3A;
-  --navy2:#234B5C;
-  --teal:#168F91;
-  --teal2:#126B72;
-  --light:#E4F3F1;
-  --gold:#E9B96E;
-  --bg:#F3F5F4;
-  --white:#fff;
-  --text:#203743;
-  --muted:#71828A;
-  --border:#DCE5E6;
-}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  font-family:Arial,Tahoma,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
-button,input,select{font:inherit}
-button{cursor:pointer}
-button:active{transform:scale(.98)}
-
-header{
-  background:linear-gradient(135deg,#142D3A,#234B5C);
-  color:white;
-  text-align:center;
-  padding:38px 18px 35px;
-  border-radius:0 0 28px 28px;
-}
-.logo{
-  width:65px;height:65px;
-  display:grid;place-items:center;
-  margin:auto;border-radius:21px;
-  background:#ffffff18;
-  font-size:34px;
-  border:1px solid #ffffff30;
-}
-header h1{font-size:36px;margin:13px 0 5px}
-header p{font-size:14px;color:#D7E5E8;margin:7px 0}
-.tagline{
-  display:inline-block;margin-top:13px;
-  padding:9px 16px;border-radius:30px;
-  background:var(--gold);color:#263C45;
-  font-weight:bold;font-size:12px;
-}
-main{max-width:760px;padding:0 15px;margin:24px auto}
-.card{
-  background:white;border:1px solid var(--border);
-  border-radius:21px;padding:21px;margin-bottom:17px;
-  box-shadow:0 7px 24px #142D3A0B;
-}
-.section-title{
-  display:flex;align-items:center;gap:10px;margin-bottom:8px;
-}
-.section-title h2{margin:0;color:var(--navy);font-size:21px}
-.section-icon{font-size:23px}
-.description{
-  color:var(--muted);font-size:13px;
-  line-height:1.75;margin:8px 0 17px;
-}
-.search-box{display:flex;gap:8px}
-.search-box input{
-  flex:1;min-width:0;padding:14px;
-  border:1px solid var(--border);border-radius:13px;
-  outline:none;background:#FBFCFC;font-size:14px;
-}
-.search-box input:focus{
-  border-color:var(--teal);
-  box-shadow:0 0 0 3px #168F9118;
-}
-.primary-btn{
-  background:var(--navy);color:white;
-  border-radius:13px;padding:0 19px;
-  font-weight:bold;border:0;
-}
-.primary-btn:hover{background:var(--navy2)}
-.quick-title{font-size:13px;color:var(--muted);margin:18px 0 10px}
-.quick-buttons{display:flex;flex-wrap:wrap;gap:8px}
-.quick-buttons button{
-  background:var(--light);color:var(--teal2);
-  border:0;padding:9px 13px;border-radius:30px;font-size:12px;
-}
-.quick-buttons button:hover{background:#D1EAE7}
-
-.image-section{
-  margin-top:21px;padding:17px;
-  background:#F5F8F7;border:1px dashed #A9C9C8;
-  border-radius:17px;text-align:center;
-}
-.image-section h3{margin:0 0 6px;font-size:16px;color:var(--navy)}
-.image-section p{font-size:12px;color:var(--muted);line-height:1.6}
-.file-label{
-  display:inline-block;padding:11px 17px;
-  border-radius:11px;background:white;
-  border:1px solid var(--border);
-  color:var(--teal2);font-weight:bold;font-size:13px;
-  cursor:pointer;
-}
-#imageInput{display:none}
-#imagePreview img{
-  display:block;max-width:100%;max-height:250px;
-  object-fit:contain;margin:12px auto;border-radius:13px;
-}
-.image-actions{display:flex;justify-content:center;gap:8px;margin-top:10px}
-.small-btn{
-  background:white;color:var(--teal2);
-  border:1px solid var(--border);
-  border-radius:10px;padding:9px 13px;font-size:12px;
-}
-.clear-btn{color:#A34A4A;border-color:#F0DADA}
-
-#result{margin-top:20px;scroll-margin-top:15px}
-.empty{
-  background:#F5F8F7;padding:23px 14px;
-  border-radius:15px;text-align:center;
-  font-size:13px;line-height:1.8;color:var(--muted);
-}
-.result-heading{color:var(--navy);font-weight:bold;font-size:14px;margin-bottom:11px}
-.result-card{
-  border:1px solid var(--border);border-radius:17px;
-  padding:16px;margin-bottom:12px;background:white;
-  animation:fadeUp .3s ease;
-}
-.result-card h3{margin:0 0 9px;font-size:19px;color:var(--navy)}
-.category{
-  display:inline-block;background:var(--light);
-  color:var(--teal2);padding:6px 10px;
-  border-radius:30px;font-size:11px;
-}
-.bin-box{
-  margin:14px 0;padding:17px;border-radius:16px;
-  text-align:center;background:#F1F5F4;border:1px solid var(--border);
-}
-.bin-visual{display:flex;justify-content:center;align-items:center;margin:0 auto 8px;min-height:158px}
-.bin-visual svg{display:block;width:166px;height:158px;max-width:100%;overflow:visible}
-.bin-name{font-size:21px;font-weight:bold;color:var(--navy)}
-.bin-type{font-size:12px;color:var(--muted);margin-top:4px}
-.detail-block{background:#F6F8F7;padding:13px;border-radius:12px;margin-top:10px}
-.detail-block h4{color:var(--navy2);font-size:13px;margin:0 0 6px}
-.detail-block p{color:#526771;font-size:13px;line-height:1.7;margin:0}
-.warning{
-  background:#FFF7E9;color:#80602C;
-  padding:11px;border-radius:11px;
-  font-size:12px;line-height:1.7;margin-top:10px;
-}
-.result-map-button{
-  margin-top:12px;width:100%;padding:12px;
-  border:0;border-radius:11px;
-  background:var(--teal);color:white;font-weight:bold;
-}
-
-.map-card{border-top:4px solid var(--teal)}
-.map-controls{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.map-label{
-  grid-column:1/-1;font-size:13px;
-  font-weight:bold;color:var(--navy);
-}
-.map-select,.location-btn{
-  width:100%;min-width:0;padding:12px;
-  border-radius:11px;font-size:13px;
-}
-.map-select{border:1px solid var(--border);background:white;color:var(--text)}
-.location-btn{background:var(--navy);color:white;border:0;font-weight:bold}
-.map-status{
-  margin:11px 0;padding:11px;
-  background:#F3F6F6;border-radius:11px;
-  color:#60747C;font-size:12px;line-height:1.7;
-}
-#map{
-  width:100%;height:330px;
-  border-radius:16px;border:1px solid var(--border);
-  overflow:hidden;background:#E8EFED;
-  z-index:1;
-}
-.map-caption{font-size:10px;color:var(--muted);line-height:1.6;margin:8px 2px 13px}
-.map-legend{display:flex;gap:13px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin:12px 0}
-.legend-dot{
-  display:inline-block;width:9px;height:9px;
-  border-radius:50%;margin-right:4px;
-}
-.legend-dot.teal{background:#168F91}
-.legend-dot.gold{background:#E9B96E}
-.dropoff-results{display:grid;gap:11px}
-.dropoff-item{
-  background:white;border:1px solid var(--border);
-  border-radius:15px;padding:14px;
-}
-.dropoff-item h3{margin:0 0 6px;color:var(--navy);font-size:16px}
-.dropoff-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
-.dropoff-district{
-  display:inline-block;background:var(--light);
-  color:var(--teal2);padding:5px 9px;
-  border-radius:20px;font-size:11px;white-space:nowrap;
-}
-.dropoff-address,.dropoff-meta{font-size:12px;line-height:1.7;color:#657780}
-.material-list{display:flex;flex-wrap:wrap;gap:5px;margin:9px 0}
-.material-chip{
-  background:#F0F4F3;color:#36515B;
-  border-radius:20px;padding:5px 8px;font-size:11px;
-}
-.verify-note{
-  background:#FFF7E9;color:#806638;
-  padding:10px;border-radius:10px;
-  font-size:11px;line-height:1.7;margin-top:9px;
-}
-.dropoff-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
-.dropoff-actions a,.dropoff-actions button{
-  text-decoration:none;border:0;border-radius:10px;
-  padding:10px 12px;font-size:12px;font-weight:bold;
-}
-.route-link{background:var(--navy);color:white}
-.map-link{background:var(--light);color:var(--teal2)}
-.report-panel{
-  background:#F5F7F6;border-radius:13px;
-  padding:14px;margin-top:15px;font-size:13px;color:var(--navy);
-}
-.report-panel p{font-size:12px;line-height:1.6;color:var(--muted)}
-.report-btn{
-  border:0;border-radius:10px;padding:10px 13px;
-  background:var(--gold);color:#263C45;
-  font-size:12px;font-weight:bold;
-}
-.map-disclaimer{font-size:10px;line-height:1.7;color:#89969A;margin-top:13px}
-.info-card{font-size:13px;line-height:1.9;color:#60747C}
-.info-card h2{color:var(--navy)}
-footer{
-  text-align:center;padding:25px 15px 35px;
-  font-size:12px;line-height:1.9;color:var(--muted);
-}
-footer a{color:var(--teal2);text-decoration:none}
-#toast{
-  position:fixed;bottom:20px;left:50%;
-  transform:translate(-50%,15px);
-  background:var(--navy);color:white;
-  padding:12px 17px;border-radius:30px;
-  font-size:12px;opacity:0;pointer-events:none;
-  transition:.25s;z-index:1000;
-  width:max-content;max-width:90%;text-align:center;
-}
-#toast.show{opacity:1;transform:translate(-50%,0)}
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(8px)}
-  to{opacity:1;transform:translateY(0)}
-}
-@media(max-width:390px){
-  .card{padding:16px}
-  header h1{font-size:31px}
-  .search-box{gap:6px}
-  .primary-btn{padding:0 13px}
-  .map-controls{grid-template-columns:1fr}
-  .map-label{grid-column:auto}
-  #map{height:290px}
-}
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition:none!important}
-}
+:root{--navy:#142d3a;--navy2:#1d4050;--teal:#20a99a;--teal2:#dff5f1;--gold:#e8b84b;--ink:#20323a;--muted:#71818a;--paper:#f4f8f8;--white:#fff;--line:#e4ecec;--shadow:0 12px 35px rgba(20,45,58,.09)}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:linear-gradient(120deg,var(--navy),#1c5260);color:#fff;padding:20px 18px 25px;border-radius:0 0 25px 25px}
+.top{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:25px;font-weight:850;letter-spacing:.2px}.brand span{color:var(--gold)}.tagline{font-size:12px;color:#d3e6e8;margin-top:2px}
+.flame{border:1px solid #ffffff42;background:#ffffff16;color:#fff;border-radius:14px;padding:9px 12px;font-weight:700;cursor:pointer}
+.hero{max-width:1050px;margin:26px auto 0}.hero h1{font-size:clamp(24px,5vw,34px);line-height:1.2;margin:0 0 8px}.hero p{color:#d4e5e7;margin:0;font-size:14px}
+.search-wrap{display:flex;gap:8px;background:#fff;border-radius:15px;padding:6px;box-shadow:var(--shadow)}.search-wrap input{flex:1;min-width:0;border:0;outline:0;padding:12px;font-size:15px;color:var(--ink)}.search-wrap button{border:0;border-radius:11px;background:var(--teal);color:#fff;padding:0 18px;font-weight:750;cursor:pointer}
+main{max-width:1050px;margin:22px auto;padding:0 15px 40px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:22px 2px 12px}.section-head h2{font-size:18px;margin:0;color:var(--navy)}.hint{font-size:12px;color:var(--muted)}
+.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.category{border:1px solid var(--line);background:#fff;border-radius:16px;padding:14px 8px;text-align:center;cursor:pointer;box-shadow:0 4px 15px #142d3a08;transition:.15s}.category.active{border:2px solid var(--teal);background:var(--teal2);padding:13px 7px}.category .emoji{font-size:25px;display:block;margin-bottom:6px}.category strong{font-size:12px;display:block;color:var(--navy)}.category small{font-size:10px;color:var(--muted)}
+.panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:var(--shadow);margin-top:14px}.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.filters select,.filters button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 11px;color:var(--ink);font-size:13px}.filters button{cursor:pointer}.filters .locate{background:var(--navy);color:#fff;border-color:var(--navy)}
+#map{height:430px;border-radius:14px;z-index:1;background:#e8eeee}
+.route-card{display:none;margin:12px 0 0;padding:13px 14px;border:1px solid #b9e5df;border-radius:14px;background:#effaf8}
+.route-card.show{display:block}.route-title{font-size:14px;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:7px}
+.route-detail{font-size:12px;color:#42616a;line-height:1.55;margin-top:5px}
+.route-warning{font-size:11px;color:#8a641a;background:#fff7df;border-radius:9px;padding:9px 10px;margin-top:9px;line-height:1.5}
+.route-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}.route-actions a,.route-actions button{border:0;border-radius:9px;padding:9px 12px;font-size:12px;font-weight:750;text-decoration:none;cursor:pointer}
+.route-actions a{background:var(--navy);color:white}.route-actions button{background:#dff5f1;color:#126b64}
+#map{height:430px;border-radius:14px;z-index:1;background:#e8eeee}.map-note{font-size:11px;color:var(--muted);margin:10px 2px 0;line-height:1.5}
+.results{display:grid;gap:9px;margin-top:12px}.result{border:1px solid var(--line);border-radius:13px;padding:12px;display:flex;justify-content:space-between;gap:10px;align-items:center}.result strong{font-size:13px}.result p{font-size:11px;color:var(--muted);margin:4px 0 0}.result button{border:0;background:var(--teal2);color:#126b64;border-radius:9px;padding:8px 10px;font-size:11px;font-weight:700;white-space:nowrap;cursor:pointer}
+.empty{padding:18px;text-align:center;color:var(--muted);font-size:13px;background:#f8fbfb;border-radius:12px}.status{font-size:11px;color:var(--muted);margin:9px 2px}
+.category-action{display:none;margin-top:14px}.category-action.show{display:block}.action-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow)}.action-card p{font-size:12px;color:var(--muted);margin:0 0 12px}.primary-action{width:100%;border:0;border-radius:12px;background:var(--teal);color:#fff;padding:14px;font-size:15px;font-weight:750;cursor:pointer}.waste-box{display:none;margin-top:14px}.waste-box.show{display:block}.waste-result{background:#f4faf9;border:1px solid #d9eeea;border-radius:13px;padding:13px;margin-top:10px;font-size:13px;line-height:1.6}.waste-result b{color:var(--navy)}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
+.modal-backdrop{display:none;position:fixed;inset:0;background:#071b22a8;z-index:1000;align-items:center;justify-content:center;padding:18px}.modal-backdrop.show{display:flex}.modal{background:#fff;border-radius:20px;padding:20px;width:min(390px,100%);max-height:88vh;overflow:auto;text-align:center;box-shadow:var(--shadow)}.modal .big{font-size:35px}.bin-visual{display:flex;justify-content:center;align-items:center;margin:0 auto 8px;min-height:158px}.bin-visual svg{display:block;width:166px;height:158px;max-width:100%;overflow:visible}.modal h3{margin:8px 0;color:var(--navy)}.modal p{font-size:13px;color:var(--muted);line-height:1.5}.modal button{border:0;background:var(--teal);color:white;border-radius:11px;padding:10px 20px;font-weight:700;cursor:pointer}
+@media(max-width:520px){.categories{grid-template-columns:repeat(2,1fr)}#map{height:340px}.hero{margin-top:22px}.result{align-items:flex-start}.section-head{align-items:center}}
 </style>
 </head>
-
 <body>
 <header>
-  <div class="logo">♻️</div>
-  <h1>Let's Sort</h1>
-  <p>SMART WASTE SORTING GUIDE</p>
-  <p>ค้นให้เจอ แยกให้ถูก ทิ้งให้เป็น</p>
-  <div class="tagline">SMALL ACTIONS, CLEANER COMMUNITY</div>
+  <div class="top">
+    <div><div class="brand">Near<span>Me</span></div><div class="tagline">Everything You Need, Nearby.</div></div>
+    <button class="flame" id="flameButton">🔥 <span id="xpLabel">0 XP</span></button>
+  </div>
+  <div class="hero">
+    <h1>สิ่งจำเป็นใกล้ตัวคุณ</h1>
+    <p>ค้นหาจุดบริการใกล้เคียง ใช้ชีวิตในเมืองได้สะดวกขึ้น</p>
+  </div>
 </header>
 
 <main>
-
-<section class="card">
-  <div class="section-title">
-    <span class="section-icon">🔎</span>
-    <h2>ค้นหาประเภทขยะ</h2>
-  </div>
-  <p class="description">
-    พิมพ์ชื่อสิ่งของเพื่อดูประเภทขยะ วิธีคัดแยก และจุดรับที่อาจรองรับวัสดุนั้น
-  </p>
-
-  <div class="search-box">
-    <input id="searchInput" type="search"
-      placeholder="เช่น ขวดน้ำ กระดาษ ถ่านไฟฉาย"
-      autocomplete="off">
-    <button class="primary-btn" id="searchBtn" type="button">ค้นหา</button>
+  <div class="section-head"><h2>เลือกสิ่งที่ต้องการ</h2><span class="hint">แตะเพื่อเลือกหมวดหมู่</span></div>
+  <div class="categories" id="categories">
+    <button class="category" data-type="bin"><span class="emoji">🗑️</span><strong>ถังขยะ / จุดทิ้ง</strong><small>ค้นหาจุดทิ้งขยะ</small></button>
+    <button class="category" data-type="toilet"><span class="emoji">🚻</span><strong>ห้องน้ำสาธารณะ</strong><small>ค้นหาห้องน้ำใกล้ฉัน</small></button>
+    <button class="category" data-type="atm"><span class="emoji">🏧</span><strong>ATM</strong><small>ค้นหาตู้ธนาคาร</small></button>
+    <button class="category" data-type="waste"><span class="emoji">♻️</span><strong>แยกขยะ</strong><small>ค้นหาวิธีทิ้งให้ถูกต้อง</small></button>
   </div>
 
-  <p class="quick-title">✨ ค้นหาด่วน</p>
-  <div class="quick-buttons">
-    <button type="button" data-search="ขวดน้ำ">ขวดน้ำ</button>
-    <button type="button" data-search="เศษอาหาร">เศษอาหาร</button>
-    <button type="button" data-search="กระดาษ">กระดาษ</button>
-    <button type="button" data-search="ถ่านไฟฉาย">ถ่านไฟฉาย</button>
-    <button type="button" data-search="ซองขนม">ซองขนม</button>
-    <button type="button" data-search="โทรศัพท์เก่า">โทรศัพท์เก่า</button>
-  </div>
+  <section class="category-action" id="categoryAction">
+    <div class="action-card" id="nearbyAction">
+      <p id="actionDescription">เลือกหมวดหมู่เพื่อเริ่มค้นหา</p>
+      <button class="primary-action" id="nearbyButton">ค้นหาใกล้ฉัน</button>
+    </div>
+  </section>
 
-  <div class="image-section">
-    <h3>📷 ค้นหาด้วยภาพ</h3>
-    <p>เลือกรูปจากแกลเลอรีหรือกล้อง ระบบจะแสดงภาพตัวอย่าง แต่ยังไม่มี AI วิเคราะห์ภาพ</p>
-    <label class="file-label" for="imageInput">＋ เลือกรูปภาพ</label>
-    <input type="file" id="imageInput" accept="image/*" capture="environment">
-    <div id="imagePreview"><p>ภาพที่เลือกจะแสดงตรงนี้</p></div>
-  </div>
+  <section class="panel" id="mapPanel" style="display:none">
+    <div class="section-head" style="margin:0 0 12px"><h2 id="mapHeading">แผนที่สถานที่ใกล้ฉัน</h2><span class="hint" id="countLabel">0 จุด</span></div>
+    <div class="filters">
+      <select id="districtFilter" aria-label="เลือกเขต">
+        <option value="all">ทุกเขตนำร่อง</option><option value="ดินแดง">ดินแดง</option><option value="ห้วยขวาง">ห้วยขวาง</option><option value="ลาดพร้าว">ลาดพร้าว</option>
+      </select>
+      <select id="bankFilter" style="display:none" aria-label="เลือกธนาคาร">
+        <option value="all">ทุกธนาคาร</option><option value="กรุงเทพ">ธนาคารกรุงเทพ</option><option value="กรุงไทย">ธนาคารกรุงไทย</option><option value="กสิกรไทย">ธนาคารกสิกรไทย</option><option value="ไทยพาณิชย์">ธนาคารไทยพาณิชย์</option><option value="กรุงศรี">ธนาคารกรุงศรี</option><option value="ออมสิน">ธนาคารออมสิน</option><option value="อื่นๆ">อื่น ๆ</option>
+      </select>
+      <button class="locate" id="locateButton">◎ ค้นหาใกล้ฉัน</button>
+    </div>
+    <div class="route-card" id="routeCard" aria-live="polite">
+      <div class="route-title">🧭 <span id="routeTitle">เส้นทางใกล้คุณ</span></div>
+      <div class="route-detail" id="routeDetail">กำลังค้นหาเส้นทาง...</div>
+      <div class="route-warning" id="routeWarning" style="display:none"></div>
+      <div class="route-actions" id="routeActions"></div>
+    </div>
+    <div id="map" style="margin-top:12px"></div>
+    <div class="map-note">หมุดจะแสดงเฉพาะจุดที่มีพิกัดตัวเลข ส่วนจุดที่ยังไม่มีพิกัดจะแสดงเป็นรายการและเปิดค้นหาต่อใน Google Maps ได้ ทุกจุดที่ขึ้น “รอตรวจสอบ” ยังไม่ใช่ข้อมูลยืนยันหน้างาน</div>
+    <div id="resultList" class="results"><div class="empty">ยังไม่มีข้อมูลสถานที่ในหมวดนี้<br>เมื่อเพิ่มพิกัดจริงแล้ว จุดต่าง ๆ จะแสดงบนแผนที่ตรงนี้</div></div>
+    <div class="status" id="locationStatus">พื้นที่นำร่อง: ดินแดง · ห้วยขวาง · ลาดพร้าว</div>
+  </section>
 
-  <div id="result" aria-live="polite">
-    <div class="empty">🌿<br>เริ่มค้นหาสิ่งของที่ต้องการทิ้งได้เลย</div>
-  </div>
-</section>
-
-<section class="card map-card" id="dropoffSection">
-  <div class="section-title">
-    <span class="section-icon">📍</span>
-    <h2>ค้นหาจุดรับขยะใกล้คุณ</h2>
-  </div>
-  <p class="description">
-    ค้นหาจุดรับในพื้นที่นำร่อง และเปิดเส้นทางผ่าน Google Maps
-    ระบบจะแสดงข้อมูลที่มี พร้อมแจ้งเมื่อยังต้องตรวจสอบ
-  </p>
-
-  <div class="map-controls">
-    <label class="map-label" for="districtFilter">เลือกพื้นที่นำร่อง</label>
-    <select class="map-select" id="districtFilter">
-      <option value="all">ทุกพื้นที่</option>
-      <option value="ดินแดง">ดินแดง</option>
-      <option value="ห้วยขวาง">ห้วยขวาง</option>
-      <option value="ลาดพร้าว">ลาดพร้าว</option>
-    </select>
-    <button class="location-btn" id="useLocationBtn" type="button">
-      ◎ ใช้ตำแหน่งของฉัน
-    </button>
-  </div>
-
-  <div class="map-status" id="locationStatus" role="status">
-    กำลังเตรียมแผนที่...
-  </div>
-
-  <div id="map" aria-label="แผนที่จุดรับขยะ"></div>
-  <p class="map-caption">
-    แผนที่จาก OpenStreetMap ผ่าน Leaflet หมุดจะแสดงเมื่อระบบค้นพบพิกัดของจุดรับ
-  </p>
-
-  <div class="map-legend">
-    <span><i class="legend-dot teal"></i> จุดรับขยะ</span>
-    <span><i class="legend-dot gold"></i> ข้อมูลต้องตรวจสอบก่อนเดินทาง</span>
-  </div>
-
-  <div id="dropoffResults" class="dropoff-results">
-    <div class="empty">กำลังเตรียมข้อมูลจุดรับขยะ...</div>
-  </div>
-
-  <div class="report-panel">
-    <strong>พบข้อมูลจุดรับไม่ถูกต้อง?</strong>
-    <p>ช่วยแจ้งทีม Let's Sort ว่าจุดรับปิด ย้าย หรือไม่รับวัสดุที่ระบุ</p>
-    <button class="report-btn" id="reportPointBtn" type="button">
-      ＋ สร้างข้อความแจ้งปัญหา
-    </button>
-  </div>
-
-  <p class="map-disclaimer">
-    ข้อมูลจุดรับในรุ่นทดลองมีจำนวนจำกัด ไม่ใช่ฐานข้อมูลครบทุกแห่งในกรุงเทพฯ
-    ชนิดวัสดุและเวลาให้บริการอาจเปลี่ยนแปลง โปรดติดต่อผู้ให้บริการก่อนเดินทาง
-  </p>
-</section>
-
-<section class="card info-card">
-  <h2>🌍 ทำไมต้องแยกขยะ?</h2>
-  <p>
-    การคัดแยกขยะช่วยให้วัสดุที่ยังใช้ประโยชน์ได้ถูกนำกลับมาใช้ใหม่
-    ลดปริมาณขยะที่ต้องกำจัด และช่วยลดผลกระทบต่อสิ่งแวดล้อม
-  </p>
-  <p>Let's Sort สนับสนุนแนวคิด SDG 11 เมืองและชุมชนที่ยั่งยืน</p>
-</section>
-
+  <section class="panel waste-box" id="wastePanel">
+    <h2 style="font-size:17px;margin:0;color:var(--navy)">♻️ แยกขยะให้ถูกถัง</h2>
+    <p style="font-size:12px;color:var(--muted);margin:5px 0 10px">ใช้ฐานข้อมูลขยะ 31 รายการจาก Let's Sort เดิม พิมพ์ชื่อสิ่งของเพื่อดูภาพถังและวิธีคัดแยก</p>
+    <div class="search-wrap" style="border:1px solid var(--line);box-shadow:none">
+      <input id="wasteSearchInput" type="search" placeholder="เช่น ขวดน้ำ, กระป๋อง, กล่องกระดาษ...">
+      <button id="wasteSearchButton">ค้นหาขยะ</button>
+    </div>
+    <div id="wasteAnswer" class="waste-result">พิมพ์ชื่อขยะเพื่อดูถังที่ควรทิ้งและวิธีเตรียมก่อนทิ้ง</div>
+  </section>
 </main>
+<footer>NearMe · ทำให้การใช้ชีวิตในเมืองง่ายขึ้น ใกล้กว่าที่คิด</footer>
 
-<footer>
-  <strong>LET'S SORT</strong><br>
-  Your smart guide to waste sorting.<br><br>
-  แหล่งข้อมูลอ้างอิง<br>
-  <a href="https://greener.bangkok.go.th/waste-recycle/how-to-ting/"
-     target="_blank" rel="noopener noreferrer">Greener Bangkok</a><br>
-  <a href="https://sdgs.un.org/goals/goal11"
-     target="_blank" rel="noopener noreferrer">United Nations SDG 11</a><br>
-  <a href="https://www.openstreetmap.org/copyright"
-     target="_blank" rel="noopener noreferrer">OpenStreetMap</a>
-</footer>
+<div class="modal-backdrop" id="flameModal">
+  <div class="modal"><div class="big">🔥</div><h3>เติมไฟให้ตัวเอง</h3><p id="xpDetails">สะสม XP จากการใช้งาน NearMe</p><button id="closeModal">ปิด</button></div>
+</div>
+<div class="modal-backdrop" id="binModal">
+  <div class="modal">
+    <div id="binVisual" aria-label="ภาพถังขยะ"></div>
+    <h3 id="binTitle">ถังขยะรีไซเคิล</h3>
+    <p id="binDescription">ดูคำแนะนำการทิ้งขยะให้ถูกต้อง</p>
+    <button id="closeBinModal">เข้าใจแล้ว</button>
+  </div>
+</div>
 
-<div id="toast" role="status" aria-live="polite"></div>
-
-<!-- Leaflet JavaScript -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <script>
-"use strict";
+// ============================================================
+// NEARME LOCATION DATA
+// เพิ่มสถานที่จริงในรายการนี้ทีละจุดได้เลย
+// type: "bin" | "toilet" | "atm"
+// district: "ดินแดง" | "ห้วยขวาง" | "ลาดพร้าว"
+// lat / lng ต้องเป็นพิกัดที่ตรวจสอบแล้วเท่านั้น
+// status: "verified" หรือ "needs-check"
+// ============================================================
+const PLACES = [
+ // ห้องน้ำสาธารณะ: รายชื่อจาก THEEKHEE/OpenStreetMap; ยังต้องตรวจสอบการเข้าใช้จริง
+ {id:"toilet-fortune",name:"ห้องน้ำ Fortune Town",type:"toilet",district:"ดินแดง",mapQuery:"ห้องน้ำ Fortune Town ดินแดง กรุงเทพมหานคร",status:"needs-check",note:"ห้องน้ำในห้าง เปิดตามเวลาห้าง 10:00–22:00 ตามฐานข้อมูล THEEKHEE"},
+ {id:"toilet-kheha2",name:"ห้องน้ำ สวนเคหะดินแดง 2",type:"toilet",district:"ดินแดง",mapQuery:"ห้องน้ำ สวนเคหะดินแดง 2 กรุงเทพมหานคร",status:"needs-check",note:"มีข้อมูลว่ามีน้ำใช้ แต่ยังไม่ยืนยันเวลาและการเข้าใช้"},
+ {id:"toilet-street-ratchada",name:"ห้องน้ำ เดอะ สตรีท รัชดา",type:"toilet",district:"ดินแดง",mapQuery:"ห้องน้ำ The Street Ratchada Bangkok",status:"needs-check",note:"ห้องน้ำในห้าง เปิดตามเวลาห้างที่แหล่งข้อมูลระบุ 11:00–22:00"},
+ {id:"toilet-bliss",name:"ห้องน้ำ Bliss",type:"toilet",district:"ห้วยขวาง",mapQuery:"Bliss Huai Khwang Bangkok",status:"needs-check",note:"แหล่งข้อมูลระบุว่าเป็นห้องน้ำในร้าน/ร้านอาหารและจำกัดเฉพาะลูกค้า จึงไม่ถือเป็นห้องน้ำสาธารณะยืนยันแล้ว"},
+ {id:"toilet-robinson",name:"ห้องน้ำ Robinson รัชดาภิเษก",type:"toilet",district:"ห้วยขวาง",mapQuery:"Robinson Ratchadaphisek Bangkok toilet",status:"needs-check",note:"ห้องน้ำในห้าง เปิดตามเวลาห้าง 10:00–22:00 ตามฐานข้อมูล THEEKHEE"},
+ {id:"toilet-nawamin-1",name:"ห้องน้ำ Nawamin City Avenue (จุด 1)",type:"toilet",district:"ลาดพร้าว",mapQuery:"Nawamin City Avenue Bangkok toilet",status:"needs-check",note:"ฐานข้อมูลระบุชื่อสถานที่ แต่ยังไม่มีรายละเอียดเวลาและการเข้าใช้"},
+ {id:"toilet-nawamin-2",name:"ห้องน้ำ Nawamin City Avenue (จุด 2)",type:"toilet",district:"ลาดพร้าว",mapQuery:"Nawamin City Avenue Bangkok toilet",status:"needs-check",note:"ฐานข้อมูลระบุชื่อสถานที่ แต่ยังไม่มีรายละเอียดเวลาและการเข้าใช้"},
+ {id:"toilet-plaza-lagoon",name:"ห้องน้ำ Plaza Lagoon",type:"toilet",district:"ลาดพร้าว",mapQuery:"Plaza Lagoon Lat Phrao Bangkok toilet",status:"needs-check",note:"ฐานข้อมูลระบุชื่อสถานที่ แต่ยังไม่มีรายละเอียดเวลาและการเข้าใช้"},
+ // ATM: มีชื่อ/ที่อยู่จากผลค้นหาธุรกิจ แต่ยังไม่มีพิกัดตัวเลขที่ยืนยันได้
+ {id:"atm-krungsri-trakunsuk",name:"ATM ธนาคารกรุงศรีอยุธยา",type:"atm",district:"ดินแดง",bank:"กรุงศรี",mapQuery:"ATM Bank of Ayudhya 5801 Soi Trakun Suk Din Daeng Bangkok",status:"needs-check",note:"ที่อยู่ที่พบ: 5801 ซอยตระกูลสุข; พิกัดและสถานะตู้ต้องตรวจสอบ"},
+ {id:"atm-kbank-dindaeng",name:"ATM กสิกรไทย สาขาดินแดง เครื่อง 2",type:"atm",district:"ดินแดง",bank:"กสิกรไทย",mapQuery:"ATM กสิกรไทย สาขาดินแดง เครื่อง 2 Bangkok",status:"needs-check",note:"พบชื่อสถานที่ แต่ที่อยู่และพิกัดยังไม่ละเอียดพอ"},
+ {id:"atm-scb-asokdindaeng",name:"ATM ธนาคารไทยพาณิชย์ แขวงดินแดง",type:"atm",district:"ดินแดง",bank:"ไทยพาณิชย์",mapQuery:"ATM SCB Thanon Asok Din Daeng Bangkok",status:"needs-check",note:"พบชื่อสถานที่และถนนอโศก–ดินแดง แต่พิกัดยังไม่ยืนยัน"},
+ // จุดรับขยะ: พิกัดโครงการของ กทม. บริเวณสำนักงานเขต ไม่ใช่การยืนยันตำแหน่งถังรับภายในอาคาร
+ {id:"ewaste-dd-office",name:"จุดรับ E-Waste สำนักงานเขตดินแดง",type:"bin",district:"ดินแดง",lat:13.769710,lng:100.553440,mapQuery:"จุดรับ E-Waste สำนักงานเขตดินแดง 99 ถนนมิตรไมตรี กรุงเทพมหานคร",status:"needs-check",note:"กทม. ระบุจุดรับ E-Waste ที่สำนักงานเขต; หมุดนี้เป็นพิกัดโครงการบริเวณสำนักงาน ไม่ใช่พิกัดถังรับที่ยืนยันแล้ว"}
+];
 
-/* =========================
-   ฐานข้อมูลขยะ
-========================= */
-
+// ฐานข้อมูลขยะและประเภทถัง: ย้ายจาก Let's Sort ต้นฉบับโดยคงข้อมูลเดิม
 const wasteData = [
 {
  name:"ขวดน้ำพลาสติก PET",
@@ -695,11 +420,7 @@ const wasteData = [
 }
 ];
 
-/* =========================
-   ข้อมูลถังขยะ
-========================= */
-
-const binInfo={
+const binInfo = {
  yellow:{name:"ถังรีไซเคิล",color:"#E7B94F",dark:"#B98222",label:"RECYCLE"},
  green:{name:"ถังขยะอินทรีย์",color:"#438D58",dark:"#28643B",label:"ORGANIC"},
  blue:{name:"ถังขยะทั่วไป",color:"#477DAD",dark:"#2B557F",label:"GENERAL"},
@@ -748,578 +469,224 @@ function renderBinIllustration(type){
  </div>`;
 }
 
-/* =========================
-   จุดรับขยะ
-========================= */
+const TYPE_LABEL={bin:"จุดทิ้งขยะ",toilet:"ห้องน้ำสาธารณะ",atm:"ATM"};
+const TYPE_ICON={bin:"🗑️",toilet:"🚻",atm:"🏧"};
+let selectedType="bin",markers=[],userMarker=null,routeLine=null,routeDestinationMarker=null,lastUserPosition=null;
+const map=L.map("map").setView([13.769,100.555],12);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(map);
+const markerLayer=L.layerGroup().addTo(map);
+const routeLayer=L.layerGroup().addTo(map);
 
-const dropoffPoints=[
-{
- id:"dindaeng-office",
- name:"จุดรับ E-Waste สำนักงานเขตดินแดง",
- district:"ดินแดง",
- search:"สำนักงานเขตดินแดง กรุงเทพมหานคร",
- address:"สำนักงานเขตดินแดง ถนนประชาสงเคราะห์ แขวงดินแดง เขตดินแดง กรุงเทพมหานคร",
- materials:["battery","electronics"],
- status:"กทม. ระบุว่ามีจุดรับ E-Waste ที่สำนักงานเขต",
- source:"https://greener.bangkok.go.th/waste-recycle/e-waste/"
-},
-{
- id:"huaikhwang-office",
- name:"จุดรับ E-Waste สำนักงานเขตห้วยขวาง",
- district:"ห้วยขวาง",
- search:"สำนักงานเขตห้วยขวาง กรุงเทพมหานคร",
- address:"สำนักงานเขตห้วยขวาง ถนนประชาอุทิศ แขวงห้วยขวาง เขตห้วยขวาง กรุงเทพมหานคร",
- materials:["battery","electronics"],
- status:"กทม. ระบุว่ามีจุดรับ E-Waste ที่สำนักงานเขต",
- source:"https://greener.bangkok.go.th/waste-recycle/e-waste/"
-},
-{
- id:"latphrao-office",
- name:"จุดรับ E-Waste สำนักงานเขตลาดพร้าว",
- district:"ลาดพร้าว",
- search:"สำนักงานเขตลาดพร้าว 208 ซอยนาคนิวาส 8 กรุงเทพมหานคร",
- address:"208 ซอยนาคนิวาส 8 แขวงลาดพร้าว เขตลาดพร้าว กรุงเทพมหานคร 10230",
- materials:["battery","electronics"],
- status:"กทม. ระบุว่ามีจุดรับ E-Waste ที่สำนักงานเขต",
- source:"https://greener.bangkok.go.th/waste-recycle/e-waste/"
-},
-{
- id:"central-eastville-ewaste",
- name:"จุดรับ E-Waste เซ็นทรัล อีสต์วิลล์",
- district:"ลาดพร้าว",
- search:"Central Eastville E-Center Bangkok",
- address:"ชั้น 2 โซน E-Center ศูนย์การค้าเซ็นทรัล อีสต์วิลล์ เขตลาดพร้าว กรุงเทพมหานคร",
- materials:["battery","electronics"],
- status:"มีรายชื่อจุดรับจาก AIS — ชั้น 2 โซน E-Center",
- source:"https://sustainability.ais.co.th/th/sustainability-projects/ais-ewaste/collection-channels"
-},
-{
- id:"central-eastville-recycleday",
- name:"Recycle Day @ Central EastVille",
- district:"ลาดพร้าว",
- search:"Recycle Day Central EastVille Bangkok",
- address:"ศูนย์การค้าเซ็นทรัล อีสต์วิลล์ ถนนประดิษฐ์มนูธรรม เขตลาดพร้าว กรุงเทพมหานคร",
- materials:["plastic","paper","metal"],
- status:"มีข้อมูลว่าเป็นจุดรับรีไซเคิล — โปรดตรวจสอบชนิดวัสดุที่รับก่อนเดินทาง",
- source:"https://www.google.com/maps/search/?api=1&query=Recycle+Day+Central+EastVille+Bangkok"
-},
-{
- id:"sirirat-recycle",
- name:"ศิริรัตน์ รีไซเคิล",
- district:"ลาดพร้าว",
- search:"ศิริรัตน์ รีไซเคิล 5 7 9 ซอยสังคมสงเคราะห์ 20 ลาดพร้าว",
- address:"5, 7, 9 ซอยสังคมสงเคราะห์ 20 ถนนลาดพร้าว แขวงลาดพร้าว เขตลาดพร้าว กรุงเทพมหานคร 10230",
- materials:["plastic","metal"],
- status:"ร้านรับซื้อของเก่า/รีไซเคิล — โทรยืนยันชนิดวัสดุก่อนนำไป",
- source:"https://www.yellowpages.co.th/profile/ศิริรัตน์-รีไซเคิล-8R2neEbVP",
- phone:"02-539-1163"
-},
-{
- id:"garden",
- name:"Recycle Day @ g Garden",
- district:"ห้วยขวาง",
- search:"g Garden Rama 9 Bangkok",
- address:"ย่านพระราม 9 เขตห้วยขวาง กรุงเทพมหานคร",
- materials:["plastic","paper","metal"],
- status:"ต้องตรวจสอบชนิดวัสดุและเวลาให้บริการก่อนเดินทาง"
+function clearRoute(){
+ routeLayer.clearLayers();routeLine=null;routeDestinationMarker=null;
+ document.getElementById("routeCard").classList.remove("show");
 }
-];
-
-/* =========================
-   ตัวแปรระบบ
-========================= */
-
-let currentItem=null;
-let currentPosition=null;
-let imageUrl=null;
-let map=null;
-let markers=new Map();
-let userMarker=null;
-
-const $=id=>document.getElementById(id);
-
-/* =========================
-   แจ้งเตือน
-========================= */
-
-function toast(message){
- const el=$("toast");
- el.textContent=message;
- el.classList.add("show");
- clearTimeout(window.toastTimer);
- window.toastTimer=setTimeout(()=>{
-  el.classList.remove("show");
- },2600);
+function googleDirectionsUrl(origin,destination){
+ return "https://www.google.com/maps/dir/?api=1&origin="+encodeURIComponent(origin.lat+","+origin.lng)+"&destination="+encodeURIComponent(destination.lat+","+destination.lng)+"&travelmode=walking";
+}
+async function drawRouteTo(place,origin=lastUserPosition){
+ if(!origin||!place||place.status!=="verified"||!Number.isFinite(Number(place.lat))||!Number.isFinite(Number(place.lng))){
+  clearRoute();
+  document.getElementById("routeCard").classList.add("show");
+  document.getElementById("routeTitle").textContent="ยังวาดเส้นทางจริงไม่ได้";
+  document.getElementById("routeDetail").textContent="จุดนี้ยังไม่มีพิกัดที่ตรวจสอบยืนยันแล้ว จึงไม่แสดงเส้นทางเพื่อป้องกันการนำทางผิด";
+  document.getElementById("routeWarning").style.display="block";
+  document.getElementById("routeWarning").textContent="ข้อมูลที่ขึ้น “รอตรวจสอบ” ยังไม่ควรใช้เป็นจุดหมายในการนำทาง";
+  document.getElementById("routeActions").innerHTML="";
+  return;
+ }
+ clearRoute();
+ const destination={lat:Number(place.lat),lng:Number(place.lng)};
+ const card=document.getElementById("routeCard");
+ card.classList.add("show");
+ document.getElementById("routeTitle").textContent="กำลังคำนวณเส้นทาง";
+ document.getElementById("routeDetail").textContent="กำลังหาเส้นทางเดินจากตำแหน่งของคุณไปยัง "+place.name;
+ document.getElementById("routeWarning").style.display="none";
+ try{
+  const url=`https://router.project-osrm.org/route/v1/foot/${origin.lng},${origin.lat};${destination.lng},${destination.lat}?overview=full&geometries=geojson`;
+  const response=await fetch(url);
+  if(!response.ok)throw new Error("route service");
+  const data=await response.json();
+  if(data.code!=="Ok"||!data.routes?.length)throw new Error("no route");
+  const route=data.routes[0],coords=route.geometry.coordinates.map(c=>[c[1],c[0]]);
+  routeLine=L.polyline(coords,{color:"#087fce",weight:7,opacity:.9,lineCap:"round",lineJoin:"round"}).addTo(routeLayer);
+  routeDestinationMarker=L.marker([destination.lat,destination.lng]).addTo(routeLayer).bindPopup(`<b>${safeText(place.name)}</b><br>จุดหมายที่ตรวจสอบแล้ว`);
+  const bounds=L.latLngBounds([ [origin.lat,origin.lng], [destination.lat,destination.lng] ]);
+  map.fitBounds(bounds.pad(.22),{maxZoom:16});
+  document.getElementById("routeTitle").textContent="เส้นทางไปยัง "+place.name;
+  document.getElementById("routeDetail").textContent=`ระยะทางตามเส้นทางประมาณ ${(route.distance/1000).toFixed(1)} กม. · เวลาเดินประมาณ ${Math.max(1,Math.round(route.duration/60))} นาที`;
+  document.getElementById("routeActions").innerHTML=`<a href="${googleDirectionsUrl(origin,destination)}" target="_blank" rel="noopener">เปิด Google Maps นำทาง ↗</a><button type="button" id="clearRouteButton">ซ่อนเส้นทาง</button>`;
+  document.getElementById("clearRouteButton").addEventListener("click",clearRoute);
+ }catch(error){
+  document.getElementById("routeTitle").textContent="คำนวณเส้นทางไม่สำเร็จ";
+  document.getElementById("routeDetail").textContent="บริการเส้นทางอาจไม่พร้อมใช้งาน ลองเปิด Google Maps เพื่อนำทางแทน";
+  document.getElementById("routeActions").innerHTML=`<a href="${googleDirectionsUrl(origin,destination)}" target="_blank" rel="noopener">เปิด Google Maps นำทาง ↗</a>`;
+ }
 }
 
-/* =========================
-   ระบบค้นหาขยะ
-========================= */
+function safeText(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function currentPlaces(){
+ const district=document.getElementById("districtFilter").value;
+ const bank=document.getElementById("bankFilter").value;
+ return PLACES.filter(p=>p.type===selectedType&&(district==="all"||p.district===district)&&(selectedType!=="atm"||bank==="all"||p.bank===bank));
+}
+function renderPlaces(inputPlaces){
+ markerLayer.clearLayers();const list=document.getElementById("resultList");const places=inputPlaces||currentPlaces();
+ document.getElementById("countLabel").textContent=places.length+" จุด";
+ list.innerHTML="";
+ if(!places.length){list.innerHTML='<div class="empty">ยังไม่พบข้อมูลในหมวดนี้ ลองเปลี่ยนเขตหรือช่วยเราเพิ่มจุดได้</div>';return;}
+ const mapped=[];
+ places.forEach(p=>{
+  const hasCoords=Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng));
+  let m=null;
+  if(hasCoords){
+   m=L.marker([Number(p.lat),Number(p.lng)]).addTo(markerLayer);mapped.push(p);
+  }
+  const distance=p.distanceKm!=null?`${p.distanceKm.toFixed(1)} กม.`:null;
+  const detail=[p.district,p.bank,p.services?.join(" / "),distance,p.note].filter(Boolean).join(" · ");
+  if(m)m.bindPopup(`<b>${safeText(p.name)}</b><br>${safeText(detail)}<br><small>${p.status==="verified"?"ตรวจสอบแล้ว":"รอตรวจสอบ"}</small>`);
+  const el=document.createElement("div");el.className="result";
+  const mapUrl=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.mapQuery||p.name)}`;
+  el.innerHTML=`<div><strong>${TYPE_ICON[p.type]||"📍"} ${safeText(p.name)}</strong><p>${safeText(detail)} · ${p.status==="verified"?"ตรวจสอบแล้ว":"รอตรวจสอบ"}${hasCoords?" · มีหมุดโดยประมาณ":" · ยังไม่มีพิกัดตัวเลข"}</p></div><button type="button">${hasCoords?"ดูบนแผนที่":"เปิดแผนที่นำทาง"}</button>`;
+  el.querySelector("button").addEventListener("click",()=>{
+   if(hasCoords){map.setView([Number(p.lat),Number(p.lng)],16);m.openPopup();}
+   else window.open(mapUrl,"_blank","noopener");
+  });
+  list.appendChild(el);
+ });
+ if(mapped.length===1)map.setView([Number(mapped[0].lat),Number(mapped[0].lng)],14);
+ else if(mapped.length>1){const bounds=L.latLngBounds(mapped.map(p=>[Number(p.lat),Number(p.lng)]));map.fitBounds(bounds.pad(.18));}
+}
+function setType(type){
+ selectedType=type==="waste"?"bin":type;
+ document.querySelectorAll(".category").forEach(b=>b.classList.toggle("active",b.dataset.type===type));
+ const action=document.getElementById("categoryAction");
+ const mapPanel=document.getElementById("mapPanel");
+ const wastePanel=document.getElementById("wastePanel");
+ action.classList.add("show");
+ mapPanel.style.display="none";
+ wastePanel.classList.toggle("show",type==="waste");
+ document.getElementById("bankFilter").style.display=type==="atm"?"inline-block":"none";
+ if(type==="waste"){
+   document.getElementById("actionDescription").textContent="ค้นหาวิธีแยกขยะและดูภาพถังที่เหมาะสม";
+   document.getElementById("nearbyAction").style.display="none";
+   document.getElementById("wasteSearchInput").focus();
+ }else{
+   document.getElementById("nearbyAction").style.display="block";
+   const labels={bin:"จุดทิ้งขยะ",toilet:"ห้องน้ำสาธารณะ",atm:"ตู้ ATM"};
+   document.getElementById("actionDescription").textContent=`ค้นหา${labels[type]}ที่อยู่ใกล้ตำแหน่งปัจจุบันของคุณ`;
+   document.getElementById("nearbyButton").textContent=`ค้นหา${labels[type]}ใกล้ฉัน`;
+   document.getElementById("mapHeading").textContent=`แผนที่${labels[type]}ใกล้ฉัน`;
+   document.getElementById("countLabel").textContent="0 จุด";
+ }
+}
+document.querySelectorAll(".category").forEach(b=>b.addEventListener("click",()=>setType(b.dataset.type)));
+document.getElementById("districtFilter").addEventListener("change",renderPlaces);
+document.getElementById("bankFilter").addEventListener("change",renderPlaces);
 
+function searchNearby(){
+ const mapPanel=document.getElementById("mapPanel");
+ mapPanel.style.display="block";
+ document.getElementById("locationStatus").textContent="กำลังค้นหาสถานที่ใกล้ตำแหน่งของคุณ...";
+ renderPlaces();
+ if(!navigator.geolocation){
+   document.getElementById("locationStatus").textContent="อุปกรณ์นี้ไม่รองรับการระบุตำแหน่ง";
+   return;
+ }
+ navigator.geolocation.getCurrentPosition(pos=>{
+   const {latitude,longitude}=pos.coords;
+   if(userMarker)map.removeLayer(userMarker);
+   userMarker=L.circleMarker([latitude,longitude],{radius:8,color:"#147cbd",fillColor:"#48a9e8",fillOpacity:1}).addTo(map).bindPopup("ตำแหน่งของคุณ");
+   map.setView([latitude,longitude],15);
+   userMarker.openPopup();
+   const candidates=currentPlaces();
+   const withCoords=candidates.filter(p=>Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng)));
+   const withoutCoords=candidates.filter(p=>!Number.isFinite(Number(p.lat))||!Number.isFinite(Number(p.lng)));
+   const nearby=[...withCoords.map(p=>({...p,distanceKm:distanceKm(latitude,longitude,Number(p.lat),Number(p.lng))})).sort((a,b)=>a.distanceKm-b.distanceKm),...withoutCoords];
+   document.getElementById("locationStatus").textContent=withCoords.length
+     ? `พบ ${withCoords.length} จุดที่มีพิกัด และอีก ${withoutCoords.length} จุดที่ยังไม่มีพิกัดตัวเลข (เปิดแผนที่ค้นหาจากชื่อได้)`
+     : `พบข้อมูล ${withoutCoords.length} จุด แต่ยังไม่มีพิกัดตัวเลขที่ยืนยันได้ จึงเปิดแผนที่จากชื่อสถานที่แทน`;
+   renderPlaces(nearby);
+   awardDailyXP();
+ },()=>{
+   document.getElementById("locationStatus").textContent="ระบุตำแหน่งไม่ได้ โปรดอนุญาต Location ในเบราว์เซอร์ แล้วลองอีกครั้ง";
+ },{enableHighAccuracy:true,timeout:12000});
+}
+function distanceKm(lat1,lon1,lat2,lon2){
+ const r=6371,rad=x=>x*Math.PI/180;
+ const dLat=rad(lat2-lat1),dLon=rad(lon2-lon1);
+ const a=Math.sin(dLat/2)**2+Math.cos(rad(lat1))*Math.cos(rad(lat2))*Math.sin(dLon/2)**2;
+ return 2*r*Math.asin(Math.sqrt(a));
+}
+document.getElementById("nearbyButton").addEventListener("click",searchNearby);
 function normalize(text){
- return String(text||"")
- .toLowerCase()
- .trim()
- .replace(/\s+/g," ");
+ return String(text||"").toLowerCase().trim().replace(/\s+/g," ");
 }
-
 function findWaste(query){
  const q=normalize(query);
  if(!q)return null;
-
  const words=q.split(" ").filter(Boolean);
-
  const scored=wasteData.map(item=>{
   const name=normalize(item.name);
   const keywords=(item.keywords||[]).map(normalize);
   const category=normalize(item.category);
   const tags=(item.tags||[]).map(normalize);
-
   let score=0;
-
   if(name===q)score=100;
   else if(keywords.includes(q))score=95;
   else if(name.includes(q))score=85;
   else if(keywords.some(word=>word.includes(q)))score=80;
   else if(keywords.some(word=>q.includes(word)))score=70;
-  else if(words.length>1 && words.every(word=>
-   name.includes(word)||keywords.some(key=>key.includes(word))
-  ))score=65;
+  else if(words.length>1 && words.every(word=>name.includes(word)||keywords.some(key=>key.includes(word))))score=65;
   else if(category.includes(q)||tags.includes(q))score=40;
-
   return {item,score};
- }).filter(result=>result.score>0)
-  .sort((a,b)=>b.score-a.score);
-
+ }).filter(result=>result.score>0).sort((a,b)=>b.score-a.score);
  return scored.length?scored[0].item:null;
 }
-
-function showResult(item){
- currentItem=item;
- const result=$("result");
-
- if(!item){
-  result.innerHTML=`
-   <div class="empty">
-    ไม่พบข้อมูลขยะชนิดนี้<br>
-    ลองค้นหาด้วยคำอื่น
-   </div>`;
-  renderDropoffs();
-  loadDropoffMarkers();
-  return;
- }
-
- const bin=binInfo[item.type];
-
- result.innerHTML=`
- <div class="result-heading">ผลการค้นหา</div>
-
- <div class="result-card">
-  <h3>${item.name}</h3>
-  <span class="category">${item.category}</span>
-
-  <div class="bin-box">
-   ${renderBinIllustration(item.type)}
-   <div class="bin-name">${bin.name}</div>
-   <div class="bin-type">${item.bin}</div>
-  </div>
-
-  <div class="detail-block">
-   <h4>วิธีคัดแยก</h4>
-   <p>${item.steps}</p>
-  </div>
-
-  <div class="warning">
-   ⚠️ ${item.note}
-  </div>
-
-  <button class="result-map-button" id="showMapBtn">
-   📍 ค้นหาจุดรับขยะที่เกี่ยวข้อง
-  </button>
- </div>
- `;
-
- $("showMapBtn").addEventListener("click",()=>{
-  $("dropoffSection").scrollIntoView({
-   behavior:"smooth"
-  });
-  renderDropoffs();
- });
-
- renderDropoffs();
- loadDropoffMarkers();
-}
-
-/* =========================
-   ค้นหา
-========================= */
-
 function searchWaste(){
- const query=$("searchInput").value;
- if(!query.trim()){
-  toast("กรุณาพิมพ์ชื่อขยะก่อน");
+ const q=document.getElementById("wasteSearchInput").value.trim();
+ const answer=document.getElementById("wasteAnswer");
+ if(!q){answer.textContent="กรุณาพิมพ์ชื่อขยะที่ต้องการค้นหา";return;}
+ const item=findWaste(q);
+ if(!item){
+  answer.textContent="ไม่พบข้อมูลขยะชนิดนี้ ลองค้นด้วยชื่ออื่น เช่น ขวดน้ำ กระดาษ หรือถ่านไฟฉาย";
   return;
  }
-
- showResult(findWaste(query));
- $("result").scrollIntoView({
-  behavior:"smooth",
-  block:"nearest"
- });
+ answer.innerHTML=`<b>${safeText(item.name)}</b><br>${safeText(item.category)}<br>ควรทิ้ง: <b>${safeText(item.bin)}</b><br>${safeText(item.steps)}`;
+ document.getElementById("binVisual").innerHTML=renderBinIllustration(item.type);
+ document.getElementById("binTitle").textContent=item.name;
+ document.getElementById("binDescription").innerHTML=
+  `<div style="font-size:13px;line-height:1.65;text-align:left">
+   <div style="text-align:center;color:#168F91;font-weight:700;margin-bottom:7px">${safeText(item.category)}</div>
+   <b>ควรทิ้ง:</b> ${safeText(item.bin)}<br>
+   <b>วิธีคัดแยก:</b> ${safeText(item.steps)}<br>
+   <b>หมายเหตุ:</b> ${safeText(item.note)}
+  </div>`;
+ document.getElementById("binModal").classList.add("show");
+ awardDailyXP();
 }
+document.getElementById("wasteSearchButton").addEventListener("click",searchWaste);
+document.getElementById("wasteSearchInput").addEventListener("keydown",e=>{if(e.key==="Enter")searchWaste();});
+document.getElementById("closeBinModal").addEventListener("click",()=>document.getElementById("binModal").classList.remove("show"));
+document.getElementById("binModal").addEventListener("click",e=>{if(e.target.id==="binModal")e.currentTarget.classList.remove("show");});
 
-$("searchBtn").addEventListener("click",searchWaste);
+document.getElementById("locateButton").addEventListener("click",searchNearby);
 
-$("searchInput").addEventListener("keydown",e=>{
- if(e.key==="Enter")searchWaste();
-});
-
-document.querySelectorAll("[data-search]").forEach(btn=>{
- btn.addEventListener("click",()=>{
-  $("searchInput").value=btn.dataset.search;
-  searchWaste();
- });
-});
-
-/* =========================
-   รูปภาพตัวอย่าง
-========================= */
-
-$("imageInput").addEventListener("change",e=>{
- const file=e.target.files[0];
- if(!file)return;
-
- if(!file.type.startsWith("image/")){
-  toast("กรุณาเลือกรูปภาพ");
-  return;
- }
-
- if(imageUrl)URL.revokeObjectURL(imageUrl);
-
- imageUrl=URL.createObjectURL(file);
-
- $("imagePreview").innerHTML=`
-  <img src="${imageUrl}" alt="ภาพตัวอย่างขยะ">
-  <div class="image-actions">
-   <button class="small-btn clear-btn" id="clearImage">
-    ลบภาพ
-   </button>
-  </div>
- `;
-
- $("clearImage").addEventListener("click",()=>{
-  URL.revokeObjectURL(imageUrl);
-  imageUrl=null;
-  $("imageInput").value="";
-  $("imagePreview").innerHTML="<p>ภาพที่เลือกจะแสดงตรงนี้</p>";
-  toast("ลบภาพแล้ว");
- });
-});
-
-/* =========================
-   สร้างแผนที่ Leaflet
-========================= */
-
-function initMap(){
-
- if(typeof L==="undefined"){
-  $("locationStatus").textContent=
-  "ไม่สามารถโหลดระบบแผนที่ได้ กรุณาตรวจสอบอินเทอร์เน็ต";
-  return;
- }
-
- map=L.map("map").setView(
-  [13.765,100.565],12
- );
-
- L.tileLayer(
-  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-  {
-   maxZoom:19,
-   attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-  }
- ).addTo(map);
-
- $("locationStatus").textContent=
- "แผนที่พร้อมใช้งาน เลือกพื้นที่เพื่อค้นหาจุดรับขยะ";
-
- setTimeout(()=>{
-  map.invalidateSize();
- },300);
-
- loadDropoffMarkers();
+function awardDailyXP(){
+ const today=new Date().toLocaleDateString("en-CA");
+ const data=JSON.parse(localStorage.getItem("nearmeProgress")||'{"xp":0,"lastDay":"","streak":0}');
+ if(data.lastDay===today)return;
+ const yesterday=new Date(Date.now()-86400000).toLocaleDateString("en-CA");
+ data.streak=data.lastDay===yesterday?data.streak+1:1;data.xp+=10;data.lastDay=today;
+ localStorage.setItem("nearmeProgress",JSON.stringify(data));updateXP();
+ const modal=document.getElementById("flameModal");document.querySelector(".modal h3").textContent="ไฟติดแล้ว!";
+ document.getElementById("xpDetails").textContent=`วันนี้คุณได้รับ +10 XP · ใช้งานต่อเนื่อง ${data.streak} วัน`;modal.classList.add("show");
 }
-
-/* =========================
-   ล้างหมุดเดิม
-========================= */
-
-function clearMarkers(){
- markers.forEach(marker=>{
-  if(map)map.removeLayer(marker);
- });
- markers.clear();
-}
-
-/* =========================
-   ค้นหาพิกัดสถานที่
-========================= */
-
-async function geocodePoint(point){
-
- const query=encodeURIComponent(
-  point.search+", Thailand"
- );
-
- const url=
- "https://nominatim.openstreetmap.org/search?format=json&limit=1&q="+query;
-
- try{
-  const response=await fetch(url);
-
-  if(!response.ok)return null;
-
-  const data=await response.json();
-
-  if(!data.length)return null;
-
-  return [
-   Number(data[0].lat),
-   Number(data[0].lon)
-  ];
-
- }catch(error){
-  return null;
- }
-}
-
-/* =========================
-   แสดงหมุดบนแผนที่
-========================= */
-
-function getFilteredDropoffPoints(){
- const district=$("districtFilter").value;
- let points=dropoffPoints.filter(point=>
-  district==="all"||point.district===district
- );
-
- if(currentItem){
-  const tags=currentItem.tags||[];
-  points=points.filter(point=>
-   (point.materials||[]).some(material=>tags.includes(material))
-  );
- }
-
- return points;
-}
-
-async function loadDropoffMarkers(){
- if(!map)return;
-
- clearMarkers();
-
- const points=getFilteredDropoffPoints();
-
- if(!points.length){
-  $("locationStatus").textContent=currentItem
-   ? "ยังไม่มีจุดรับที่ตรงกับวัสดุชนิดนี้ในพื้นที่ที่เลือก"
-   : "ยังไม่มีจุดรับขยะในพื้นที่ที่เลือก";
-  return;
- }
-
- $("locationStatus").textContent=
-  "กำลังค้นหาตำแหน่งของจุดรับขยะ...";
-
- const found=[];
- for(const point of points){
-  const coordinates=await geocodePoint(point);
-  if(!coordinates)continue;
-
-  const marker=L.marker(coordinates).addTo(map);
-  marker.bindPopup(`
-   <strong>${point.name}</strong><br>
-   ${point.district}<br>
-   <small>สถานะ: ${point.status} — โปรดตรวจสอบข้อมูลก่อนเดินทาง</small>
-  `);
-
-  markers.set(point.id,marker);
-  found.push(coordinates);
- }
-
- if(found.length){
-  map.fitBounds(found,{
-   padding:[35,35],
-   maxZoom:15
-  });
-
-  $("locationStatus").textContent=
-   "แสดง "+found.length+" จุดที่ตรงกับตัวกรอง โปรดตรวจสอบสถานที่จริงก่อนเดินทาง";
- }else{
-  $("locationStatus").textContent=
-   "ยังค้นหาพิกัดไม่ได้ สามารถเปิด Google Maps จากรายการจุดรับได้";
- }
-}
-
-/* =========================
-   แสดงรายการจุดรับ
-========================= */
-
-function renderDropoffs(){
- const container=$("dropoffResults");
- const points=getFilteredDropoffPoints();
-
- if(!points.length){
-  container.innerHTML=`
-   <div class="empty">
-    ${currentItem
-     ? "ยังไม่มีจุดรับที่ตรงกับวัสดุชนิดนี้ในพื้นที่ที่เลือก"
-     : "ยังไม่มีจุดรับในพื้นที่นี้"}
-    <br>ข้อมูลจุดรับเพิ่มเติมจะเพิ่มเมื่อได้รับการตรวจสอบ
-   </div>`;
-  return;
- }
-
- container.innerHTML=points.map(point=>`
-  <div class="dropoff-item">
-   <div class="dropoff-top">
-    <h3>${point.name}</h3>
-    <span class="dropoff-district">${point.district}</span>
-   </div>
-
-   <div class="dropoff-address">📍 ${point.address}</div>
-
-   <div class="verify-note">
-    ⚠️ สถานะ: ${point.status}
-    <br>ควรตรวจสอบชนิดวัสดุและเวลาให้บริการกับสถานที่ก่อนเดินทาง
-    ${point.phone ? `<br>โทร. ${point.phone}` : ""}
-    ${point.source
-     ? `<br><a href="${point.source}" target="_blank" rel="noopener noreferrer">ดูแหล่งข้อมูล</a>`
-     : ""}
-   </div>
-
-   <div class="dropoff-actions">
-    <a class="route-link"
-     href="https://maps.google.com/?q=${encodeURIComponent(point.search)}" 
-     target="_blank"
-     rel="noopener noreferrer">
-     เปิด Google Maps
-    </a>
-
-    <button class="map-link" data-focus="${point.id}">
-     ดูตำแหน่งบนแผนที่
-    </button>
-   </div>
-  </div>
- `).join("");
-
- container.querySelectorAll("[data-focus]").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-   const marker=markers.get(btn.dataset.focus);
-   if(marker){
-    map.setView(marker.getLatLng(),16);
-    marker.openPopup();
-   }else{
-    toast("ยังไม่มีพิกัดของจุดนี้บนแผนที่");
-   }
-  });
- });
-}
-
-/* =========================
-   เปลี่ยนพื้นที่
-========================= */
-
-$("districtFilter").addEventListener("change",()=>{
- renderDropoffs();
- loadDropoffMarkers();
-});
-
-/* =========================
-   ตำแหน่งปัจจุบัน
-========================= */
-
-$("useLocationBtn").addEventListener("click",()=>{
-
- if(!navigator.geolocation){
-  toast("อุปกรณ์ไม่รองรับ GPS");
-  return;
- }
-
- $("locationStatus").textContent=
- "กำลังตรวจสอบตำแหน่งของคุณ...";
-
- navigator.geolocation.getCurrentPosition(
-  position=>{
-
-   const lat=position.coords.latitude;
-   const lng=position.coords.longitude;
-
-   currentPosition=[lat,lng];
-
-   if(userMarker)map.removeLayer(userMarker);
-
-   userMarker=L.marker(currentPosition)
-   .addTo(map)
-   .bindPopup("ตำแหน่งปัจจุบันของคุณ")
-   .openPopup();
-
-   map.setView(currentPosition,15);
-
-   $("locationStatus").textContent=
-   "ตรวจพบตำแหน่งปัจจุบันแล้ว สามารถดูตำแหน่งบนแผนที่ได้";
-
-  },
-  error=>{
-   $("locationStatus").textContent=
-   "ไม่สามารถเข้าถึงตำแหน่งได้ กรุณาอนุญาต Location และเปิดเว็บไซต์ผ่าน HTTPS";
-  },
-  {
-   enableHighAccuracy:true,
-   timeout:15000,
-   maximumAge:60000
-  }
- );
-});
-
-/* =========================
-   แจ้งปัญหาจุดรับขยะ
-========================= */
-
-$("reportPointBtn").addEventListener("click",()=>{
-
- const message=
- "แจ้งปัญหาจุดรับขยะ Let's Sort\n"+
- "ประเภทปัญหา: จุดรับปิด / ย้าย / ไม่รับวัสดุ\n"+
- "รายละเอียดเพิ่มเติม: ";
-
- if(navigator.clipboard&&navigator.clipboard.writeText){
-  navigator.clipboard.writeText(message)
-  .then(()=>toast("คัดลอกข้อความแจ้งปัญหาแล้ว"))
-  .catch(()=>showReportText(message));
- }else{
-  showReportText(message);
- }
-});
-
-function showReportText(message){
- const answer=window.prompt(
-  "คัดลอกข้อความนี้เพื่อส่งให้ทีม Let's Sort",
-  message
- );
-
- if(answer!==null)toast("เตรียมข้อความแล้ว");
-}
-
-/* =========================
-   เริ่มต้นระบบ
-========================= */
-
-renderDropoffs();
-initMap();
-
-window.addEventListener("beforeunload",()=>{
- if(imageUrl)URL.revokeObjectURL(imageUrl);
-});
-  </script>
+function updateXP(){const d=JSON.parse(localStorage.getItem("nearmeProgress")||'{"xp":0,"streak":0}');document.getElementById("xpLabel").textContent=d.xp+" XP";document.getElementById("xpDetails").textContent=`สะสม ${d.xp} XP · Streak ${d.streak||0} วัน`;}
+document.getElementById("flameButton").addEventListener("click",()=>{updateXP();document.getElementById("flameModal").classList.add("show");});
+document.getElementById("closeModal").addEventListener("click",()=>document.getElementById("flameModal").classList.remove("show"));
+document.getElementById("flameModal").addEventListener("click",e=>{if(e.target.id==="flameModal")e.currentTarget.classList.remove("show");});
+updateXP();
+</script>
 </body>
 </html>
