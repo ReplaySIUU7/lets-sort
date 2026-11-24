@@ -16,7 +16,7 @@ header{background:linear-gradient(120deg,var(--navy),#1c5260);color:#fff;padding
 .hero{max-width:1050px;margin:26px auto 0}.hero h1{font-size:clamp(24px,5vw,34px);line-height:1.2;margin:0 0 8px}.hero p{color:#d4e5e7;margin:0;font-size:14px}
 .search-wrap{display:flex;gap:8px;background:#fff;border-radius:15px;padding:6px;box-shadow:var(--shadow)}.search-wrap input{flex:1;min-width:0;border:0;outline:0;padding:12px;font-size:15px;color:var(--ink)}.search-wrap button{border:0;border-radius:11px;background:var(--teal);color:#fff;padding:0 18px;font-weight:750;cursor:pointer}
 main{max-width:1050px;margin:22px auto;padding:0 15px 40px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:22px 2px 12px}.section-head h2{font-size:18px;margin:0;color:var(--navy)}.hint{font-size:12px;color:var(--muted)}
-.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.category{border:1px solid var(--line);background:#fff;border-radius:16px;padding:14px 8px;text-align:center;cursor:pointer;box-shadow:0 4px 15px #142d3a08;transition:.15s}.category.active{border:2px solid var(--teal);background:var(--teal2);padding:13px 7px}.category .emoji{font-size:25px;display:block;margin-bottom:6px}.category strong{font-size:12px;display:block;color:var(--navy)}.category small{font-size:10px;color:var(--muted)}
+.categories{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.category{border:1px solid var(--line);background:#fff;border-radius:16px;padding:14px 8px;text-align:center;cursor:pointer;box-shadow:0 4px 15px #142d3a08;transition:.15s}.category.active{border:2px solid var(--teal);background:var(--teal2);padding:13px 7px}.category .emoji{font-size:25px;display:block;margin-bottom:6px}.category strong{font-size:12px;display:block;color:var(--navy)}.category small{font-size:10px;color:var(--muted)}
 .panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:var(--shadow);margin-top:14px}.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.filters select,.filters button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 11px;color:var(--ink);font-size:13px}.filters button{cursor:pointer}.filters .locate{background:var(--navy);color:#fff;border-color:var(--navy)}
 #map{height:430px;border-radius:14px;z-index:1;background:#e8eeee}
 .route-card{display:none;margin:12px 0 0;padding:13px 14px;border:1px solid #b9e5df;border-radius:14px;background:#effaf8}
@@ -31,6 +31,18 @@ main{max-width:1050px;margin:22px auto;padding:0 15px 40px}.section-head{display
 .empty{padding:18px;text-align:center;color:var(--muted);font-size:13px;background:#f8fbfb;border-radius:12px}.status{font-size:11px;color:var(--muted);margin:9px 2px}
 .category-action{display:none;margin-top:14px}.category-action.show{display:block}.action-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow)}.action-card p{font-size:12px;color:var(--muted);margin:0 0 12px}.primary-action{width:100%;border:0;border-radius:12px;background:var(--teal);color:#fff;padding:14px;font-size:15px;font-weight:750;cursor:pointer}.waste-box{display:none;margin-top:14px}.waste-box.show{display:block}.waste-result{background:#f4faf9;border:1px solid #d9eeea;border-radius:13px;padding:13px;margin-top:10px;font-size:13px;line-height:1.6}.waste-result b{color:var(--navy)}
 footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
+.review-section{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);text-align:left}
+.review-section h4{margin:0 0 8px;color:var(--navy);font-size:14px}
+.review-summary{font-size:12px;color:#42616a;margin-bottom:8px}
+.review-list{display:grid;gap:7px;margin-bottom:10px}
+.review-item{background:#f5f9f9;border-radius:10px;padding:9px;font-size:11px;line-height:1.5}
+.review-item strong{color:var(--navy)}
+.review-form{display:grid;gap:7px;background:#f8fbfb;padding:10px;border-radius:12px}
+.review-form label{font-size:11px;font-weight:700;color:var(--navy)}
+.review-form select,.review-form textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px;font:inherit;font-size:12px;background:#fff}
+.review-form textarea{min-height:65px;resize:vertical}
+.review-submit{background:var(--teal);color:white;border:0;border-radius:9px;padding:10px;font-weight:750}
+.review-status{font-size:10px;color:var(--muted);margin:0;line-height:1.45}
 .modal-backdrop{display:none;position:fixed;inset:0;background:#071b22a8;z-index:1000;align-items:center;justify-content:center;padding:18px}.modal-backdrop.show{display:flex}.modal{background:#fff;border-radius:20px;padding:20px;width:min(390px,100%);max-height:88vh;overflow:auto;text-align:center;box-shadow:var(--shadow)}.modal .big{font-size:35px}.bin-visual{display:flex;justify-content:center;align-items:center;margin:0 auto 8px;min-height:158px}.bin-visual svg{display:block;width:166px;height:158px;max-width:100%;overflow:visible}.modal h3{margin:8px 0;color:var(--navy)}.modal p{font-size:13px;color:var(--muted);line-height:1.5}.modal button{border:0;background:var(--teal);color:white;border-radius:11px;padding:10px 20px;font-weight:700;cursor:pointer}
 @media(max-width:520px){.categories{grid-template-columns:repeat(2,1fr)}#map{height:340px}.hero{margin-top:22px}.result{align-items:flex-start}.section-head{align-items:center}}
 </style>
@@ -53,7 +65,9 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
     <button class="category" data-type="bin"><span class="emoji">🗑️</span><strong>ถังขยะ / จุดทิ้ง</strong><small>ค้นหาจุดทิ้งขยะ</small></button>
     <button class="category" data-type="toilet"><span class="emoji">🚻</span><strong>ห้องน้ำสาธารณะ</strong><small>ค้นหาห้องน้ำใกล้ฉัน</small></button>
     <button class="category" data-type="atm"><span class="emoji">🏧</span><strong>ATM</strong><small>ค้นหาตู้ธนาคาร</small></button>
-    <button class="category" data-type="waste"><span class="emoji">♻️</span><strong>แยกขยะ</strong><small>ค้นหาวิธีทิ้งให้ถูกต้อง</small></button>
+    <button class="category" data-type="recycle"><span class="emoji">♻️</span><strong>จุดรับรีไซเคิล</strong><small>ค้นหาจุดรับวัสดุ</small></button>
+    <button class="category" data-type="parking"><span class="emoji">🅿️</span><strong>ที่จอดรถ</strong><small>รถยนต์ / มอเตอร์ไซค์</small></button>
+    <button class="category" data-type="waste"><span class="emoji">🧩</span><strong>วิธีแยกขยะ</strong><small>ค้นหาวิธีทิ้งให้ถูกต้อง</small></button>
   </div>
 
   <section class="category-action" id="categoryAction">
@@ -67,7 +81,14 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
     <div class="section-head" style="margin:0 0 12px"><h2 id="mapHeading">แผนที่สถานที่ใกล้ฉัน</h2><span class="hint" id="countLabel">0 จุด</span></div>
     <div class="filters">
       <select id="districtFilter" aria-label="เลือกเขต">
-        <option value="all">ทุกเขตนำร่อง</option><option value="ดินแดง">ดินแดง</option><option value="ห้วยขวาง">ห้วยขวาง</option><option value="ลาดพร้าว">ลาดพร้าว</option>
+        <option value="all">ทุกเขตนำร่อง</option><option value="ดินแดง">ดินแดง</option><option value="ห้วยขวาง">ห้วยขวาง</option><option value="ลาดพร้าว">ลาดพร้าว</option><option value="จตุจักร">จตุจักร</option>
+      </select>
+      <select id="parkingFilter" style="display:none" aria-label="เลือกประเภทที่จอดรถ">
+        <option value="all">ที่จอดรถทุกประเภท</option>
+        <option value="car-free">รถยนต์ · ฟรี</option>
+        <option value="car-paid">รถยนต์ · มีค่าบริการ</option>
+        <option value="motorcycle-free">มอเตอร์ไซค์ · ฟรี</option>
+        <option value="motorcycle-paid">มอเตอร์ไซค์ · มีค่าบริการ</option>
       </select>
       <select id="bankFilter" style="display:none" aria-label="เลือกธนาคาร">
         <option value="all">ทุกธนาคาร</option><option value="กรุงเทพ">ธนาคารกรุงเทพ</option><option value="กรุงไทย">ธนาคารกรุงไทย</option><option value="กสิกรไทย">ธนาคารกสิกรไทย</option><option value="ไทยพาณิชย์">ธนาคารไทยพาณิชย์</option><option value="กรุงศรี">ธนาคารกรุงศรี</option><option value="ออมสิน">ธนาคารออมสิน</option><option value="อื่นๆ">อื่น ๆ</option>
@@ -80,7 +101,7 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
       <div class="route-warning" id="routeWarning" style="display:none"></div>
       <div class="route-actions" id="routeActions"></div>
     </div>
-    <div id="map" style="margin-top:12px"></div><div class="map-selection-tip">หลังค้นหา รายการสถานที่จะเด้งขึ้นมาให้เลือกทันที หรือแตะหมุดบนแผนที่เพื่อดูรายละเอียดได้</div>
+    <div id="map" style="margin-top:12px"></div><div class="map-selection-tip">แผนที่จะแสดงหมุดทุกจุดที่มีพิกัด แตะหมุดหรือปุ่ม “เลือก” ในรายการเพื่อเปิดหน้าต่างรายละเอียด แล้วกดยืนยันสถานที่ได้</div>
     <div class="map-note">หมุดจะแสดงเฉพาะจุดที่มีพิกัดตัวเลข ส่วนจุดที่ยังไม่มีพิกัดจะแสดงเป็นรายการและเปิดค้นหาต่อใน Google Maps ได้ ทุกจุดที่ขึ้น “รอตรวจสอบ” ยังไม่ใช่ข้อมูลยืนยันหน้างาน</div>
     <div id="resultList" class="results"><div class="empty">ยังไม่มีข้อมูลสถานที่ในหมวดนี้<br>เมื่อเพิ่มพิกัดจริงแล้ว จุดต่าง ๆ จะแสดงบนแผนที่ตรงนี้</div></div>
     <div class="status" id="locationStatus">พื้นที่นำร่อง: ดินแดง · ห้วยขวาง · ลาดพร้าว</div>
@@ -123,6 +144,19 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
     <div class="place-modal-title"><div class="big" id="placeModalIcon">📍</div><h3 id="placeModalName">รายละเอียดสถานที่</h3></div>
     <div class="place-meta" id="placeModalMeta"></div>
     <div class="place-warning" id="placeModalWarning" style="display:none"></div>
+    <section id="reviewsSection" class="review-section">
+      <h4>รีวิวห้องน้ำจากผู้ใช้</h4>
+      <div id="reviewSummary" class="review-summary">ยังไม่มีรีวิว</div>
+      <div id="reviewList" class="review-list"></div>
+      <div id="reviewFormWrap" class="review-form">
+        <label for="reviewRating">ให้คะแนน (0–5 ดาว)</label>
+        <select id="reviewRating"><option value="5">5 ดาว</option><option value="4">4 ดาว</option><option value="3">3 ดาว</option><option value="2">2 ดาว</option><option value="1">1 ดาว</option><option value="0">0 ดาว</option></select>
+        <label for="reviewComment">คำแนะนำสำหรับคนต่อไป</label>
+        <textarea id="reviewComment" maxlength="500" placeholder="เช่น สะอาด มีสบู่ แต่คนเยอะช่วงพักกลางวัน"></textarea>
+        <button type="button" id="submitReview" class="review-submit">ส่งรีวิว</button>
+        <p id="reviewStatus" class="review-status">ระบบรีวิวร่วมจะแสดงผลเมื่อเชื่อมต่อฐานข้อมูล Supabase</p>
+      </div>
+    </section>
     <div class="place-modal-actions">
       <button type="button" class="cancel-place" id="cancelPlace">ยกเลิก</button>
       <button type="button" id="confirmPlace">ยืนยันสถานที่</button>
@@ -130,15 +164,57 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
   </div>
 </div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 // ============================================================
 // NEARME LOCATION DATA
 // เพิ่มสถานที่จริงในรายการนี้ทีละจุดได้เลย
-// type: "bin" | "toilet" | "atm"
+// type: "bin" | "toilet" | "atm" | "recycle" | "parking"
 // district: "ดินแดง" | "ห้วยขวาง" | "ลาดพร้าว"
 // lat / lng ต้องเป็นพิกัดที่ตรวจสอบแล้วเท่านั้น
 // status: "verified" หรือ "needs-check"
 // ============================================================
+// ใส่ Supabase Project URL และ anon/publishable key หลังสร้างโปรเจกต์
+// ห้ามใส่ service_role key ในหน้าเว็บ
+const SUPABASE_URL = "";
+const SUPABASE_ANON_KEY = "";
+const supabaseClient = (SUPABASE_URL && SUPABASE_ANON_KEY && window.supabase)
+  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+async function loadReviews(placeId){
+ const summary=document.getElementById("reviewSummary"),list=document.getElementById("reviewList");
+ const status=document.getElementById("reviewStatus");
+ list.innerHTML="";
+ if(!supabaseClient){summary.textContent="ระบบรีวิวยังไม่เชื่อมต่อฐานข้อมูล";status.textContent="ต้องตั้งค่า Supabase URL และ anon key พร้อมสร้างตารางตามไฟล์ SQL ก่อน รีวิวจึงจะแชร์กับผู้ใช้คนอื่นได้";return;}
+ summary.textContent="กำลังโหลดรีวิว...";
+ const {data,error}=await supabaseClient.from("place_reviews").select("rating,comment,created_at").eq("place_id",placeId).order("created_at",{ascending:false}).limit(30);
+ if(error){summary.textContent="โหลดรีวิวไม่สำเร็จ";status.textContent="ตรวจสอบการตั้งค่าตารางและนโยบายฐานข้อมูล";return;}
+ if(!data.length){summary.textContent="ยังไม่มีรีวิว เป็นคนแรกที่แบ่งปันได้";return;}
+ const avg=data.reduce((sum,r)=>sum+Number(r.rating),0)/data.length;
+ summary.textContent=`คะแนนเฉลี่ย ${avg.toFixed(1)} / 5 ดาว · ${data.length} รีวิวล่าสุด`;
+ data.forEach(r=>{
+  const item=document.createElement("div");item.className="review-item";
+  const date=new Date(r.created_at).toLocaleDateString("th-TH");
+  item.innerHTML=`<strong>${"★".repeat(Number(r.rating))}${"☆".repeat(5-Number(r.rating))} · ${date}</strong><br>${safeText(r.comment||"ไม่ได้เขียนข้อความ")}`;
+  list.appendChild(item);
+ });
+}
+document.getElementById("submitReview").addEventListener("click",async()=>{
+ const status=document.getElementById("reviewStatus");
+ if(!selectedPlace||selectedPlace.type!=="toilet")return;
+ if(!supabaseClient){status.textContent="ยังส่งไม่ได้: ต้องตั้งค่า Supabase ก่อน";return;}
+ const rating=Number(document.getElementById("reviewRating").value);
+ const comment=document.getElementById("reviewComment").value.trim();
+ if(!comment){status.textContent="กรุณาเขียนคำแนะนำสั้น ๆ ก่อนส่ง";return;}
+ if(comment.length>500){status.textContent="ข้อความยาวเกิน 500 ตัวอักษร";return;}
+ status.textContent="กำลังส่งรีวิว...";
+ const {error}=await supabaseClient.from("place_reviews").insert({place_id:selectedPlace.id,rating,comment});
+ if(error){status.textContent="ส่งรีวิวไม่สำเร็จ โปรดลองอีกครั้ง";return;}
+ document.getElementById("reviewComment").value="";
+ status.textContent="ส่งรีวิวแล้ว ขอบคุณที่แบ่งปันข้อมูล";
+ await loadReviews(selectedPlace.id);
+});
+
 const PLACES = [
  // ห้องน้ำสาธารณะ: รายชื่อจาก THEEKHEE/OpenStreetMap; ยังต้องตรวจสอบการเข้าใช้จริง
  {id:"toilet-fortune",name:"ห้องน้ำ Fortune Town",type:"toilet",district:"ดินแดง",mapQuery:"ห้องน้ำ Fortune Town ดินแดง กรุงเทพมหานคร",status:"needs-check",note:"ห้องน้ำในห้าง เปิดตามเวลาห้าง 10:00–22:00 ตามฐานข้อมูล THEEKHEE"},
@@ -489,13 +565,17 @@ function renderBinIllustration(type){
  </div>`;
 }
 
-const TYPE_LABEL={bin:"จุดทิ้งขยะ",toilet:"ห้องน้ำสาธารณะ",atm:"ATM"};
-const TYPE_ICON={bin:"🗑️",toilet:"🚻",atm:"🏧"};
+const TYPE_LABEL={bin:"จุดทิ้งขยะ",toilet:"ห้องน้ำสาธารณะ",atm:"ATM",recycle:"จุดรับรีไซเคิล",parking:"ที่จอดรถ"};
+const TYPE_ICON={bin:"🗑️",toilet:"🚻",atm:"🏧",recycle:"♻️",parking:"🅿️"};
 let selectedType="bin",markers=[],userMarker=null,routeLine=null,routeDestinationMarker=null,lastUserPosition=null,selectedPlace=null;
 const map=L.map("map").setView([13.769,100.555],12);
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(map);
 const markerLayer=L.layerGroup().addTo(map);
 const routeLayer=L.layerGroup().addTo(map);
+if("ResizeObserver" in window){
+ const mapObserver=new ResizeObserver(()=>map.invalidateSize({pan:false}));
+ mapObserver.observe(document.getElementById("map"));
+}
 
 function clearRoute(){
  routeLayer.clearLayers();routeLine=null;routeDestinationMarker=null;
@@ -549,6 +629,13 @@ function currentPlaces(){
  const district=document.getElementById("districtFilter").value;
  const bank=document.getElementById("bankFilter").value;
  return PLACES.filter(p=>p.type===selectedType&&(district==="all"||p.district===district)&&(selectedType!=="atm"||bank==="all"||p.bank===bank));
+}
+function distanceLabel(place){
+ if(!lastUserPosition||!Number.isFinite(Number(place.lat))||!Number.isFinite(Number(place.lng)))return "ยังคำนวณระยะทางไม่ได้";
+ const km=distanceKm(lastUserPosition.lat,lastUserPosition.lng,Number(place.lat),Number(place.lng));
+ const meters=Math.round(km*1000);
+ const walk=Math.max(1,Math.round((km/4.5)*60));
+ return `${meters<1000?meters+" ม.":km.toFixed(2)+" กม."} จากตำแหน่งคุณ · เดินประมาณ ${walk} นาที (ประเมินจากระยะเส้นตรง ไม่ใช่เส้นทางจริง)`;
 }
 function renderPlaces(inputPlaces){
  markerLayer.clearLayers();
@@ -678,6 +765,7 @@ function setType(type){
 document.querySelectorAll(".category").forEach(b=>b.addEventListener("click",()=>setType(b.dataset.type)));
 document.getElementById("districtFilter").addEventListener("change",renderPlaces);
 document.getElementById("bankFilter").addEventListener("change",renderPlaces);
+document.getElementById("parkingFilter").addEventListener("change",renderPlaces);
 
 function searchNearby(){
  const mapPanel=document.getElementById("mapPanel");
